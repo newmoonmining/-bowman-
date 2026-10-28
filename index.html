@@ -1,5 +1,39 @@
 <title>New Moon Mining Home</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<!--seo:start-->
+<!--
+                                 we pray 4 father+son
+
+[spirits controlled]
+
+                                   gang shit 4 mother:           spirits and world
+
+                  thechildren? 
+
+                                         =their vision
+[freedom insistent]
+                                                                
+
+
+in steve jobs name we pray:
+              
+
+--------------
+-->
+<meta name="description" content="Jack Bowman: product and graphic design portfolio by New Moon Mining Company (newmoonmining.co).">
+<meta name="keywords" content="newmoonmining.co, new moon mining company, Jack Bowman, portfolio W.I.P, Jack Bowman portfolio W.I.P, digital art, product design, outdoor technical clothing and accessories, gen-z">
+<meta name="author" content="New Moon Mining Company">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, noimageai">
+<meta name="copyright" content="© newmoonmining.co. All rights reserved. Images may not be used for AI training or image generation.">
+<meta property="og:site_name" content="New Moon Mining Company">
+<meta property="og:title" content="New Moon Mining Company · Jack Bowman portfolio W.I.P">
+<meta property="og:description" content="Jack Bowman: product and graphic design portfolio by New Moon Mining Company (newmoonmining.co).">
+<meta property="og:url" content="https://newmoonmining.co">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://newmoonmining.co">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://newmoonmining.co/#site", "name": "New Moon Mining Company", "alternateName": ["newmoonmining.co", "New Moon Mining"], "url": "https://newmoonmining.co", "publisher": {"@id": "https://newmoonmining.co/#org"}}, {"@type": "Organization", "@id": "https://newmoonmining.co/#org", "name": "New Moon Mining Company", "alternateName": ["newmoonmining.co", "New Moon Mining"], "url": "https://newmoonmining.co", "sameAs": ["https://www.instagram.com/fuara/", "https://newmoonmining.co"], "slogan": "                                 we pray 4 father+son\n\n[spirits controlled]\n\n                                   gang shit 4 mother:           spirits and world\n\n                  thechildren? \n\n                                         =their vision\n[freedom insistent]\n                                                                \n\n\nin steve jobs name we pray:\n              \n\n--------------"}, {"@type": "CreativeWork", "name": "Jack Bowman portfolio W.I.P", "description": "Jack Bowman: product and graphic design portfolio by New Moon Mining Company (newmoonmining.co).", "creator": {"@id": "https://newmoonmining.co/#org"}, "copyrightHolder": {"@id": "https://newmoonmining.co/#org"}, "keywords": "newmoonmining.co, new moon mining company, Jack Bowman, portfolio W.I.P, Jack Bowman portfolio W.I.P, digital art, product design, outdoor technical clothing and accessories, gen-z"}]}</script>
+<!--seo:end-->
 <style>
 /* Layout: cut-out object hung off the top-left edge; file-extension menu as a quiet column right of centre.
    Every tunable value is a token below; the dev panel writes these same tokens. */
@@ -35,8 +69,15 @@ body{background:var(--field);color:var(--ink);overflow:hidden;font-family:var(--
   top:calc(var(--vh)*-.2181 + var(--dy) - (var(--object-scale) - 1)*var(--oh)/2);
   height:calc(var(--oh)*var(--object-scale));aspect-ratio:1581/2463}
 .object img{opacity:var(--object-opacity)}
-body:not(.editing) .object{cursor:grab;touch-action:none}
-body:not(.editing) .object.dragging{cursor:grabbing}
+/* layering: words live behind the bag and rise out of it */
+.object{z-index:2;pointer-events:none}
+nav{position:absolute;inset:0;z-index:1;pointer-events:none}
+.menu a{pointer-events:auto}
+body.editing nav{z-index:3}
+.home{touch-action:none}
+.home.over-bag{cursor:grab}
+.home.dragging{cursor:grabbing}
+.menu .ch{display:inline-block;will-change:transform}
 
 /* menu */
 .menu{position:absolute;left:calc(77% + var(--menu-dx));top:calc(50% + var(--menu-dy));transform:translate(-50%,-50%) translateY(calc(var(--vh)*.004));
@@ -50,6 +91,20 @@ body:not(.editing) .object.dragging{cursor:grabbing}
   font-stretch:var(--fstretch);font-variation-settings:var(--fvs);letter-spacing:var(--track);text-transform:var(--case);
   transform:scaleX(var(--stretch));transform-origin:center}
 .menu a:hover,.menu a:focus-visible{outline:none;color:var(--hover)}
+
+/* landscape: bag locked to the window, mouth centred; words land where the diagram's red arcs end */
+@media (orientation:landscape){
+  .object{--ow:calc(85vw * var(--object-scale)); --oh:calc(var(--ow)*2463/1581);
+    width:var(--ow);height:var(--oh);left:calc(50vw - var(--ow)*.45 + var(--dx));top:calc(50vh - var(--oh)*.655 + var(--dy))}
+  :root{--menu-size:4.6vw}
+  nav{z-index:3}                                   /* once out of the bag, letters fly in front of it */
+  .menu{left:var(--menu-dx);top:var(--menu-dy);width:100%;height:100%;transform:none;display:block}
+  .menu li:nth-child(n){position:absolute;height:auto;left:calc(var(--wx)*1%);top:calc(var(--wy)*1%);transform:translate(-50%,-50%)}
+  .menu li:nth-child(1){--wx:56.7;--wy:21.3}  /* locked from Jack's export, 1544x752 */
+  .menu li:nth-child(2){--wx:25;--wy:13.4}  /* locked from Jack's export, 1544x752 */
+  .menu li:nth-child(3){--wx:32.5;--wy:35.3}  /* locked from Jack's export, 1544x752 */
+  .menu li:nth-child(4){--wx:30.7;--wy:82.7}  /* locked from Jack's export, 1544x752 */
+}
 
 /* portrait: whole bag up top; menu stack laid across the bag's rim */
 @media (orientation:portrait){
@@ -77,6 +132,14 @@ body.menu-off nav{opacity:0;pointer-events:none}
 .tool{position:fixed;z-index:20;bottom:calc(14px + env(safe-area-inset-bottom,0px));right:calc(14px + env(safe-area-inset-right,0px));
   width:26px;height:26px;padding:0;border-radius:50%;border:1px solid rgba(26,26,24,.25);background:transparent;
   color:rgba(26,26,24,.55);font:11px/1 var(--sans);cursor:pointer;opacity:.35;transition:opacity .2s;-webkit-user-select:none;user-select:none}
+.tool.move-toggle{right:calc(82px + env(safe-area-inset-right,0px));font-size:13px}
+body.arranging .menu a{cursor:move;outline:1px dashed rgba(26,26,24,.35);outline-offset:4px;touch-action:none}
+body.arranging .menu a.held{outline-style:solid}
+.export{position:fixed;z-index:25;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  font:11px/1 var(--mono);letter-spacing:.04em;padding:8px 12px;border-radius:14px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+.export:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+.export-out{position:fixed;z-index:25;left:50%;transform:translateX(-50%);bottom:calc(52px + env(safe-area-inset-bottom,0px));
+  width:min(420px,calc(100vw - 32px));height:120px;font:10px/1.4 var(--mono);border:1px solid var(--ink);border-radius:4px;padding:6px;background:#fff;color:var(--ink)}
 .tool.dev-toggle{right:calc(48px + env(safe-area-inset-right,0px));font:600 10px/1 var(--mono);letter-spacing:-.02em}
 .tool:hover,.tool:focus-visible{opacity:1}
 .tool[aria-pressed="true"]{opacity:1;background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -119,7 +182,7 @@ body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);o
 
 <main class="home">
   <div class="img-slot object" data-edit-img="home-object" aria-label="Object image">
-    <img src="assets/692fd1f9e9.webp" alt="Translucent drawstring bag on a looped cord">
+    <img src="assets/8f0cfbe15b.webp" alt="Translucent drawstring bag on a looped cord">
   </div>
   <nav aria-label="Main menu">
     <ul class="menu">
@@ -132,6 +195,9 @@ body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);o
 </main>
 
 <button class="switch" id="menuSwitch" aria-pressed="true" aria-label="Menu" title="Menu on/off"></button>
+<button class="tool move-toggle" id="moveToggle" aria-pressed="false" title="Move words (landscape)">✥</button>
+<button class="export" id="exportPos" hidden>Export positions</button>
+<textarea class="export-out" id="exportOut" readonly hidden aria-label="Exported positions"></textarea>
 <button class="tool dev-toggle" id="devToggle" aria-pressed="false" title="Developer panel (`)">Aa</button>
 <button class="tool" id="editToggle" aria-pressed="false" title="Edit content">✎</button>
 <input type="file" id="picker" accept="image/*" hidden>
@@ -147,14 +213,14 @@ body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);o
 
   /* ---------- settings: defaults are the published look ---------- */
   // shared typeface/background settings + one layout profile per orientation
-  const LK=['size','pitch','drift','menuX','menuY','objScale','objOpacity','objX','objY'];
+  const LK=['size','pitch','drift','menuX','menuY','objScale','objOpacity','objX','objY','words'];
   const DEFAULTS={
     font:'Helvetica Neue (system)', customFont:'', weight:380, stretch:2.58, fontStretch:115, tracking:-.24,
     italic:false, textCase:'none', fvs:'', color:'#92b983', hover:'#89b2d2',
     palette:['#ffffff','#c1bcac','#8dfc91','#c9b9ff','#ffa175'], bg:0, cycle:true, fade:1000,
     layout:{
-      land:{size:3.31, pitch:.3, drift:-42.5, menuX:-30.1, menuY:5.1, objScale:2.39, objOpacity:1, objX:696, objY:-203},
-      port:{size:1.23, pitch:.147, drift:-10.8, menuX:2.5, menuY:-14.4, objScale:1, objOpacity:1, objX:0, objY:0}
+      land:{size:1, pitch:1, drift:0, menuX:0, menuY:0, objScale:1, objOpacity:1, objX:0, objY:0, words:[[56.7,21.3],[25,13.4],[32.5,35.3],[30.7,82.7]]},
+      port:{size:1.23, pitch:.147, drift:-10.8, menuX:2.5, menuY:-14.4, objScale:1, objOpacity:1, objX:0, objY:0, words:[[56.7,21.3],[25,13.4],[32.5,35.3],[30.7,82.7]]}
     }
   };
   const FONTS={
@@ -185,7 +251,7 @@ body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);o
   };
   const clone=o=>JSON.parse(JSON.stringify(o));
   let S=clone(DEFAULTS);
-  try{ const saved=JSON.parse(get('dev2')||'null');
+  try{ const saved=JSON.parse(get('dev4')||'null');
     if(saved){ const L=saved.layout||{}; delete saved.layout; Object.assign(S,saved);
       ['land','port'].forEach(o=>Object.assign(S.layout[o],L[o]||{})) } }catch(e){}
   const mq=matchMedia('(orientation: portrait)'); let orient=mq.matches?'port':'land';
@@ -226,7 +292,9 @@ body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);o
   function apply(){
     const t=tokens(); for(const k in t) root.setProperty(k,t[k]);
     obj.style.setProperty('--dx',S.objX+'px'); obj.style.setProperty('--dy',S.objY+'px');
-    push(); const keep=clone(S); LK.forEach(k=>delete keep[k]); set('dev2',JSON.stringify(keep));
+    document.querySelectorAll('.menu li').forEach((li,i)=>{ const w=(S.words||[])[i]; if(w){ li.style.setProperty('--wx',w[0]); li.style.setProperty('--wy',w[1]) } });
+    dirty=true; frame.force=true;
+    push(); const keep=clone(S); LK.forEach(k=>delete keep[k]); set('dev4',JSON.stringify(keep));
   }
   apply();
   mq.addEventListener('change',()=>{ push(); orient=mq.matches?'port':'land'; pull(); apply(); label(); syncPanel() });
@@ -234,7 +302,7 @@ body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);o
   /* ---------- background: click to cycle the palette ---------- */
   let suppress=false;
   home.addEventListener('click',e=>{
-    if(editing||suppress||!S.cycle||e.target.closest('a')) { suppress=false; return }
+    if(editing||arranging||suppress||!S.cycle||e.target.closest('a')) { suppress=false; return }
     S.bg=(S.bg+1)%S.palette.length; apply(); syncPanel();
   });
 
@@ -262,22 +330,151 @@ body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);o
   picker.addEventListener('change',()=>{ if(target) load(target,picker.files[0]) });
   home.addEventListener('contextmenu',e=>{ if(!editing) e.preventDefault() });
 
-  /* ---------- drag the object; a drag never counts as a background click ---------- */
+  /* ---------- bag hit-testing: only its visible pixels count, so words behind it stay reachable ---------- */
+  const objImg=obj.querySelector('img'); let alpha=null;
+  function readAlpha(){
+    try{ const w=160,h=Math.max(1,Math.round(160*objImg.naturalHeight/objImg.naturalWidth)), c=document.createElement('canvas');
+      c.width=w; c.height=h; const x=c.getContext('2d',{willReadFrequently:true}); x.drawImage(objImg,0,0,w,h);
+      alpha={w,h,d:x.getImageData(0,0,w,h).data} }catch(e){ alpha=null }
+  }
+  if(objImg.complete) readAlpha(); objImg.addEventListener('load',readAlpha);
+  function onBag(x,y){
+    const r=obj.getBoundingClientRect(); if(x<r.left||x>r.right||y<r.top||y>r.bottom) return false;
+    if(!alpha) return true;
+    const u=Math.min(alpha.w-1,Math.floor((x-r.left)/r.width*alpha.w)), v=Math.min(alpha.h-1,Math.floor((y-r.top)/r.height*alpha.h));
+    return alpha.d[(v*alpha.w+u)*4+3]>128;
+  }
+
+  /* ---------- drag the bag; a drag never counts as a background click ---------- */
   let drag=null;
-  obj.addEventListener('pointerdown',e=>{
-    if(editing||e.button>0) return;
-    e.preventDefault(); obj.setPointerCapture(e.pointerId); obj.classList.add('dragging');
+  home.addEventListener('pointerdown',e=>{
+    if(editing||e.button>0||e.target.closest('a')||!onBag(e.clientX,e.clientY)) return;
+    e.preventDefault(); home.setPointerCapture(e.pointerId); home.classList.add('dragging');
     drag={x:e.clientX,y:e.clientY,ox:S.objX,oy:S.objY,moved:false};
   });
-  obj.addEventListener('pointermove',e=>{
-    if(!drag) return;
+  home.addEventListener('pointermove',e=>{
+    if(!drag){ if(!editing&&e.pointerType==='mouse') home.classList.toggle('over-bag',onBag(e.clientX,e.clientY)); return }
     const dx=e.clientX-drag.x, dy=e.clientY-drag.y;
     if(Math.abs(dx)+Math.abs(dy)>4) drag.moved=true;
     S.objX=Math.round(drag.ox+dx); S.objY=Math.round(drag.oy+dy);
     obj.style.setProperty('--dx',S.objX+'px'); obj.style.setProperty('--dy',S.objY+'px');
   });
-  const endDrag=()=>{ if(!drag) return; if(drag.moved){ suppress=true; apply(); syncPanel() } drag=null; obj.classList.remove('dragging') };
-  obj.addEventListener('pointerup',endDrag); obj.addEventListener('pointercancel',endDrag);
+  const endDrag=()=>{ if(!drag) return; if(drag.moved){ suppress=true; apply(); syncPanel() } dirty=true; frame.force=true; drag=null; home.classList.remove('dragging') };
+  home.addEventListener('pointerup',endDrag); home.addEventListener('pointercancel',endDrag);
+
+  /* ---------- scroll: letters float up out of the bag into the list, and sink back ---------- */
+  const RIM=.655, BODY_L=.20, BODY_R=.76;          // where the bag's opening sits, as fractions of the image
+  const links=[...document.querySelectorAll('.menu a')];
+  var L=[], P=0, goal=0, last=0, dirty=true;   // var: apply() touches these before this block runs
+  const rnd=(a,b)=>a+Math.random()*(b-a), clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+  function split(){
+    L=[];
+    links.forEach(a=>{
+      const txt=a.textContent; a.dataset.raw=txt; a.textContent='';
+      [...txt].forEach(c=>{ const s=document.createElement('span'); s.className='ch'; s.textContent=c; a.appendChild(s);
+        L.push({el:s, start:rnd(0,.38), lift:rnd(.1,.9), side:rnd(-1,1), spin:rnd(-14,14), phase:rnd(0,6.28)}) });
+    });
+    dirty=true;
+  }
+  function join(){ links.forEach(a=>{ if(a.dataset.raw!==undefined) a.textContent=a.dataset.raw }); L=[] }
+  function measure(){                                // each letter's resting slot in the list
+    L.forEach(l=>l.el.style.transform='none');
+    L.forEach(l=>{ l.el.style.clipPath=''; const r=l.el.getBoundingClientRect(); l.x=r.left+r.width/2; l.y=r.top+r.height/2; l.h=r.height; l.w=r.width });
+    dirty=false; frame.key++;
+  }
+  const MOUTH_L=.38, MOUTH_R=.62;                  // where letters leave the opening (fractions of the image width)
+  const land=()=>matchMedia('(orientation: landscape)').matches;
+  const bez=(a,b,c,d,u)=>{const v=1-u;return v*v*v*a+3*v*v*u*b+3*v*u*u*c+u*u*u*d};
+  function arc(l,b,rimY){                          // per letter: launch point, apex and landing, rebuilt when layout changes
+    const right=l.x>b.left+b.width*.45;
+    const lx=b.left+b.width*(right?rnd(.47,MOUTH_R):rnd(MOUTH_L,.5));
+    const sy=rimY+l.h*.62, top=Math.min(sy,l.y)-innerHeight*rnd(.08,.2);
+    l.A={x0:lx, y0:sy, x1:lx+(l.x-lx)*.12, y1:top, x2:l.x-(l.x-lx)*.08, y2:top, x3:l.x, y3:l.y};
+    let best=0,by=1e9; for(let i=0;i<=40;i++){const y=bez(sy,top,top,l.y,i/40); if(y<by){by=y;best=i/40}} l.A.apex=best;
+  }
+  function frame(now){
+    requestAnimationFrame(frame);
+    const dt=Math.min(.05,(now-last)/1000||0); last=now;
+    if(editing||!L.length) return;
+    if(dirty) measure();
+    const k=1-Math.exp(-dt*7); const moved=Math.abs(goal-P)>.0005;
+    P+=(goal-P)*k; if(!moved&&!frame.force) return; frame.force=false;
+    const b=obj.getBoundingClientRect(), rimY=b.top+b.height*RIM, bl=b.left+b.width*BODY_L, br=b.left+b.width*BODY_R;
+    const st=S.stretch||1, isLand=land();
+    L.forEach(l=>{
+      const t=clamp((P-l.start)/.62);
+      if(isLand){
+        if(!l.A||l.A.key!==frame.key) { arc(l,b,rimY); l.A.key=frame.key }
+        const A=l.A, u=1-Math.pow(1-t,2.2);         // quick pop out of the mouth, soft landing
+        const x=bez(A.x0,A.x1,A.x2,A.x3,u), y=bez(A.y0,A.y1,A.y2,A.y3,u);
+        const rot=(1-t)*l.spin*1.6*Math.sin(t*4+l.phase);
+        const below=u<A.apex ? clamp(y+l.h/2-rimY,0,l.h) : 0;   // still inside the bag: hide what's under the rim
+        l.el.style.clipPath=below>0?`inset(0 0 ${below.toFixed(1)}px 0)`:'';
+        l.el.style.transform=t>=1?'none':`translate(${(x-l.x)/st}px,${y-l.y}px) rotate(${rot}deg)`;
+        return;
+      }
+      l.el.style.clipPath='';
+      const x0=br-bl>l.w?clamp(l.x,bl+l.w/2,br-l.w/2):(bl+br)/2, y0=rimY+l.h*(1+l.lift);
+      const ey=1-Math.pow(1-t,3);
+      const ex=clamp((t-.3)/.7), exs=ex*ex*(3-2*ex);
+      const fade=1-t;
+      const x=x0+(l.x-x0)*exs + fade*Math.sin(t*5+l.phase)*l.h*.18*l.side;
+      const y=y0+(l.y-y0)*ey;
+      const rot=fade*l.spin*Math.sin(t*3.2+l.phase);
+      l.el.style.transform=t>=1?'none':`translate(${(x-l.x)/st}px,${y-l.y}px) rotate(${rot}deg)`;
+    });
+  }
+  frame.key=0;
+  const nudge=d=>{ if(arranging) return; goal=clamp(goal+d); frame.force=true };
+  home.addEventListener('wheel',e=>{ e.preventDefault(); nudge((e.deltaMode===1?e.deltaY*16:e.deltaY)/700) },{passive:false});
+  let ty=null;
+  home.addEventListener('touchstart',e=>{ ty=e.touches[0].clientY },{passive:true});
+  home.addEventListener('touchmove',e=>{ if(drag||ty===null) return; const y=e.touches[0].clientY; nudge((ty-y)/420); ty=y },{passive:true});
+  document.addEventListener('keydown',e=>{
+    if(editing||e.target.closest('input,textarea,select,[contenteditable]')) return;
+    const m={ArrowDown:.2,PageDown:.5,' ':.5,ArrowUp:-.2,PageUp:-.5}[e.key];
+    if(m!==undefined){ e.preventDefault(); nudge(m) } else if(e.key==='End') nudge(1); else if(e.key==='Home') nudge(-1);
+  });
+  addEventListener('resize',()=>{ dirty=true; frame.force=true });
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{ dirty=true; frame.force=true });
+  split(); frame.force=true; requestAnimationFrame(frame);
+
+  /* ---------- arrange: drag the words to their resting spots, then export ---------- */
+  var arranging=false;
+  const moveBtn=document.getElementById('moveToggle'), expBtn=document.getElementById('exportPos'), expOut=document.getElementById('exportOut');
+  function setArrange(on){
+    arranging=on&&!editing; document.body.classList.toggle('arranging',arranging);
+    moveBtn.setAttribute('aria-pressed',arranging); expBtn.hidden=!arranging; if(!arranging) expOut.hidden=true;
+    if(arranging){ goal=1; P=.999; frame.force=true }               // everything out of the bag while you place it
+  }
+  moveBtn.addEventListener('click',()=>{ if(!land()){ moveBtn.title='Turn the screen sideways to move words'; return } setArrange(!arranging) });
+  let held=null;
+  document.querySelectorAll('.menu li').forEach((li,i)=>{
+    const a=li.querySelector('a');
+    a.addEventListener('pointerdown',e=>{
+      if(!arranging||!land()) return;
+      e.preventDefault(); e.stopPropagation(); a.setPointerCapture(e.pointerId); a.classList.add('held');
+      const w=S.words[i]; held={i,li,a,x:e.clientX,y:e.clientY,wx:w[0],wy:w[1]};
+    });
+    a.addEventListener('pointermove',e=>{
+      if(!held||held.i!==i) return;
+      const wx=+(held.wx+(e.clientX-held.x)/innerWidth*100).toFixed(1), wy=+(held.wy+(e.clientY-held.y)/innerHeight*100).toFixed(1);
+      S.words[i]=[wx,wy]; li.style.setProperty('--wx',wx); li.style.setProperty('--wy',wy);
+    });
+    const drop=()=>{ if(!held||held.i!==i) return; a.classList.remove('held'); held=null; suppress=true; apply(); syncPanel() };
+    a.addEventListener('pointerup',drop); a.addEventListener('pointercancel',drop);
+  });
+  function positions(){
+    const names=links.map(a=>a.dataset.raw||a.textContent);
+    return '/* word resting spots, landscape: % of window from left, % from top (word centre) */\n'+
+      S.words.map((w,i)=>`.menu li:nth-child(${i+1}){--wx:${w[0]};--wy:${w[1]}}   /* ${names[i]} */`).join('\n')+
+      `\n/* window ${innerWidth}x${innerHeight}, offsets x ${S.menuX}vw y ${S.menuY}vh */`;
+  }
+  expBtn.addEventListener('click',()=>{
+    const txt=positions(); expOut.value=txt; expOut.hidden=false;
+    const sel=()=>{ expOut.focus(); expOut.select(); expBtn.textContent='Selected: copy it' };
+    try{ navigator.clipboard.writeText(txt).then(()=>{ expBtn.textContent='Copied ✓'; setTimeout(()=>expBtn.textContent='Export positions',1800) },sel) }catch(err){ sel() }
+  });
 
   /* ---------- menu on/off ---------- */
   const sw=document.getElementById('menuSwitch');
@@ -290,6 +487,7 @@ body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);o
   btn.addEventListener('click',()=>{
     editing=!editing;
     document.body.classList.toggle('editing',editing); btn.setAttribute('aria-pressed',editing);
+    if(editing){ setArrange(false); join() } else { split(); frame.force=true }
     texts.forEach(el=>{ if(editing){ el.contentEditable='plaintext-only'; if(el.contentEditable!=='plaintext-only') el.contentEditable='true'; } else el.removeAttribute('contenteditable'); });
   });
 
