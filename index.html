@@ -35,797 +35,254 @@ in steve jobs name we pray:
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://newmoonmining.co/#site", "name": "New Moon Mining Company", "alternateName": ["newmoonmining.co", "New Moon Mining"], "url": "https://newmoonmining.co", "publisher": {"@id": "https://newmoonmining.co/#org"}}, {"@type": "Organization", "@id": "https://newmoonmining.co/#org", "name": "New Moon Mining Company", "alternateName": ["newmoonmining.co", "New Moon Mining"], "url": "https://newmoonmining.co", "sameAs": ["https://www.instagram.com/fuara/", "https://newmoonmining.co"], "slogan": "                                 we pray 4 father+son\n\n[spirits controlled]\n\n                                   gang shit 4 mother:           spirits and world\n\n                  thechildren? \n\n                                         =their vision\n[freedom insistent]\n                                                                \n\n\nin steve jobs name we pray:\n              \n\n--------------"}, {"@type": "CreativeWork", "name": "Jack Bowman portfolio W.I.P", "description": "Jack Bowman: product and graphic design portfolio by New Moon Mining Company (newmoonmining.co).", "creator": {"@id": "https://newmoonmining.co/#org"}, "copyrightHolder": {"@id": "https://newmoonmining.co/#org"}, "keywords": "newmoonmining.co, new moon mining company, Jack Bowman, portfolio W.I.P, Jack Bowman portfolio W.I.P, digital art, product design, outdoor technical clothing and accessories, gen-z"}]}</script>
 <!--seo:end-->
 <style>
-/* Layout: cut-out object hung off the top-left edge; file-extension menu as a quiet column right of centre.
-   Every tunable value is a token below; the dev panel writes these same tokens. */
+/* New Moon Mining home: the bag, three words that live in it, a music note that missed, and the background.
+   Two fixed layouts, landscape and portrait, each set on its own below. */
 :root{
-  --field:#ffffff; --signal:#92757a; --hover:#89b2d2; --ink:#1a1a18;
   --vh:100vh;
-  --menu-size:calc(var(--vh)*.08);
-  --menu-pitch:calc(var(--vh)*.19);
-  --font:"Helvetica Neue", Helvetica, Arial, sans-serif;
-  --weight:180; --type-scale:1.25; --stretch:1.72; --fstretch:25%; --track:-.04em;
-  --italic:normal; --case:none; --fvs:normal;
-  --pitch-scale:.3; --drift:-42.5px; --menu-dx:-30.1vw; --menu-dy:5.1vh;
-  --object-scale:2.39; --object-opacity:1; --dx:696px; --dy:-203px;
-  --fade:1000ms;
-  --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
-  --mono:ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --dev-bg:rgba(250,250,248,.94); --dev-fg:#1a1a18; --dev-line:rgba(26,26,24,.14); --dev-dim:rgba(26,26,24,.55);
+  --text:#92757a; --hover:#89b2d2;
+  --field:#c9b9ff;                                 /* background, swapped by a click (see script) */
   color-scheme:light;
 }
 @supports (height:100dvh){:root{--vh:100dvh}}
 html,body{height:100%}
 *{-webkit-tap-highlight-color:transparent}
-body{background:var(--field);color:var(--ink);overflow:hidden;font-family:var(--sans);transition:background-color var(--fade);
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.home{position:fixed;inset:0;background:var(--field);transition:background-color var(--fade);
-  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
+body{background:var(--field);overflow:hidden}
+.home{position:fixed;inset:0;background:var(--field);
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:none}
 
-/* object: full-res transparent cut-out; scales about its own centre */
-.img-slot{position:absolute;overflow:hidden}
-.img-slot img{width:100%;height:100%;object-fit:contain;object-position:left top;display:block;pointer-events:none;-webkit-user-drag:none}
-.object{--oh:calc(var(--vh)*1.15); --ow:calc(var(--oh)*1581/2463);
-  left:calc(-10vw + var(--vh)*.1283 + var(--dx) - (var(--object-scale) - 1)*var(--ow)/2);
-  top:calc(var(--vh)*-.2181 + var(--dy) - (var(--object-scale) - 1)*var(--oh)/2);
-  height:calc(var(--oh)*var(--object-scale));aspect-ratio:1581/2463}
-.object img{opacity:var(--object-opacity)}
-/* layering: words live behind the bag and rise out of it */
-.object{z-index:2;pointer-events:none}
+/* bag: transparent cut-out, the image never catches clicks */
+.bag{position:absolute;overflow:hidden;z-index:2;pointer-events:none}
+.bag img{width:100%;height:100%;object-fit:contain;object-position:left top;display:block;-webkit-user-drag:none}
+
+/* words: each letter is its own span so it can be thrown in and flown out */
 nav{position:absolute;inset:0;z-index:1;pointer-events:none}
-.menu a{pointer-events:auto}
-body.editing nav{z-index:3}
-.home{touch-action:none}
-.menu .ch{display:inline-block;will-change:transform}
-html.intro-wait .menu,html.intro-wait .miss{visibility:hidden}               /* until the load-in places the letters */
-.dt-on .object{pointer-events:auto}
-/* the one that missed: a music note that bounced off the bag and lies beside it; links to SoundCloud */
-.miss{position:absolute;left:0;top:0;z-index:4;display:block;width:calc(var(--menu-size)*1.5);color:var(--signal);will-change:transform}
-.miss:hover,.miss:focus-visible{color:var(--hover);outline:none}
-.miss-sym{display:block;width:100%;height:auto;overflow:visible}               /* da tools: the bag can be picked up while unlocked */
-
-/* menu */
-.menu{position:absolute;left:calc(77% + var(--menu-dx));top:calc(50% + var(--menu-dy));transform:translate(-50%,-50%) translateY(calc(var(--vh)*.004));
-  margin:0;padding:0;list-style:none;display:flex;flex-direction:column;align-items:center}
-.menu li{height:calc(var(--menu-pitch)*var(--pitch-scale));display:flex;align-items:center}
-.menu li:nth-child(2){transform:translateX(var(--drift))}
-.menu li:nth-child(3){transform:translateX(calc(var(--drift)*2))}
-
-.menu a{display:inline-block;white-space:nowrap;color:var(--signal);text-decoration:none;line-height:1;padding:.1em .15em;
-  font-family:var(--font);font-size:calc(var(--menu-size)*var(--type-scale));font-weight:var(--weight);font-style:var(--italic);
-  font-stretch:var(--fstretch);font-variation-settings:var(--fvs);letter-spacing:var(--track);text-transform:var(--case);
-  transform:scaleX(var(--stretch));transform-origin:center}
+.menu{position:absolute;margin:0;padding:0;list-style:none;display:flex;align-items:center}
+.menu li{display:flex;align-items:center}
+.menu a{display:inline-block;white-space:nowrap;pointer-events:auto;color:var(--text);text-decoration:none;line-height:1;padding:.1em .15em;
+  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:calc(var(--menu-size)*var(--type-scale));font-weight:420;
+  font-stretch:25%;letter-spacing:-.04em;transform:scaleX(2.32);transform-origin:center}
 .menu a:hover,.menu a:focus-visible{outline:none;color:var(--hover)}
+.menu .ch{display:inline-block;will-change:transform}
 
-/* landscape: bag locked to the window, mouth centred; words land where the diagram's red arcs end */
+/* the note that missed the bag: lies beside it, links to SoundCloud */
+.miss{position:absolute;left:0;top:0;z-index:4;display:block;width:calc(var(--menu-size)*1.5);color:var(--text);will-change:transform}
+.miss:hover,.miss:focus-visible{color:var(--hover);outline:none}
+.miss-sym{display:block;width:100%;height:auto;overflow:visible}
+
+html.intro-wait .menu,html.intro-wait .miss{visibility:hidden}   /* until the load-in has placed everything */
+
+/* ---------- landscape: bag locked to the window, mouth centred, words in front of it ---------- */
 @media (orientation:landscape){
-  .object{--ow:calc(85vw * var(--object-scale)); --oh:calc(var(--ow)*2463/1581);
-    width:var(--ow);height:var(--oh);left:calc(50vw - var(--ow)*.45 + var(--dx));top:calc(50vh - var(--oh)*.655 + var(--dy))}
-  :root{--menu-size:4.6vw}
-  nav{z-index:3}                                   /* once out of the bag, letters fly in front of it */
-  .menu{left:var(--menu-dx);top:var(--menu-dy);width:100%;height:100%;transform:none;display:block}
-  .menu li:nth-child(n){position:absolute;height:auto;left:calc(var(--wx)*1%);top:calc(var(--wy)*1%);transform:translate(-50%,-50%)}
-  .menu li:nth-child(1){--wx:56.7;--wy:21.3}  /* locked from Jack's export, 1544x752 */
-  .menu li:nth-child(2){--wx:25;--wy:13.4}  /* locked from Jack's export, 1544x752 */
-  .menu li:nth-child(3){--wx:32.5;--wy:35.3}  /* locked from Jack's export, 1544x752 */
+  :root{--menu-size:4.6vw;--type-scale:1.25}
+  .bag{--ow:85vw; --oh:calc(var(--ow)*2463/1581);
+    width:var(--ow);height:var(--oh);left:calc(50vw - var(--ow)*.45);top:calc(50vh - var(--oh)*.655);translate:-19.87vw 5.55vh}
+  nav{z-index:3}
+  .menu{left:0;top:0;width:100%;height:100%;display:block}
+  .menu li{position:absolute;left:calc(var(--wx)*1%);top:calc(var(--wy)*1%);transform:translate(-50%,-50%)}
+  .w-jpg{--wx:56.7;--wy:21.3;translate:14.72vw 58.56vh;scale:1.094;rotate:2.5deg}
+  .w-mp3{--wx:25;--wy:13.4;translate:58.38vw 54.71vh;scale:1.14;rotate:5.5deg;opacity:.93}
+  .w-mp4{--wx:32.5;--wy:35.3;translate:56.19vw 45.5vh;scale:.84;rotate:-9.5deg}
+  .miss{translate:71.31vw -49.03vh;scale:3.56}
 }
 
-/* portrait: whole bag up top; menu stack laid across the bag's rim */
+/* ---------- portrait: whole bag low, words in a row behind it ---------- */
 @media (orientation:portrait){
-  .object{--oh:calc(var(--vh)*.6);
-    left:calc(50% - var(--ow)/2 + var(--dx) - (var(--object-scale) - 1)*var(--ow)/2);
-    top:calc(var(--vh)*.02 + env(safe-area-inset-top,0px) + var(--dy) - (var(--object-scale) - 1)*var(--oh)/2)}
-  :root{--menu-size:calc(var(--vh)*.05);--menu-pitch:calc(var(--vh)*.09)}   /* vh, so the stack tracks the bag's size */
-  .menu{left:calc(50% + var(--menu-dx));top:calc(50% + var(--menu-dy));transform:translate(-50%,-50%)}
-  .menu{flex-direction:row;gap:.15em}              /* words sit in a row across the rim */
-  .menu li:nth-child(n){height:auto;transform:none}
+  :root{--menu-size:calc(var(--vh)*.05);--type-scale:1.23}
+  .bag{--oh:calc(var(--vh)*.6); --ow:calc(var(--oh)*1581/2463);
+    height:var(--oh);aspect-ratio:1581/2463;left:calc(50% - var(--ow)/2);top:calc(var(--vh)*.02 + env(safe-area-inset-top,0px));translate:-11.33vw 38.64vh}
+  .menu{left:calc(50% + -5vw);top:calc(50% + -19vh);transform:translate(-50%,-50%);flex-direction:row;gap:.15em}
+  .w-jpg{translate:4.39vw 2.2vh;scale:.965}
+  .w-mp3{translate:27.81vw 6.9vh;scale:.659}
+  .w-mp4{translate:-11.57vw -17.3vh;scale:.722}
 }
-
-/* menu on/off (now a setting in da tools) */
-nav{transition:opacity .35s ease}
-body.menu-off nav{opacity:0;pointer-events:none}
-@media (prefers-reduced-motion:reduce){nav{transition:none}}
-
-/* the wrench: one settings button, bottom-left. thrown into the bag on load, pops out to here */
-.wrench{position:fixed;z-index:20;left:calc(10px + env(safe-area-inset-left,0px));bottom:calc(8px + env(safe-area-inset-bottom,0px));
-  width:44px;height:44px;padding:4px;border:0;background:transparent;color:var(--signal);cursor:pointer;opacity:.75;
-  transition:opacity .2s,color .2s;-webkit-user-select:none;user-select:none;will-change:transform}
-.wrench:hover,.wrench:focus-visible{opacity:1;color:var(--hover);outline:none}
-.wrench[aria-pressed="true"]{opacity:1;color:var(--ink)}
-.wrench-sym{display:block;width:100%;height:100%;overflow:visible}
-html.intro-wait .wrench{visibility:hidden}
-:root{--dt-inset:60px}                               /* da tools bar sits just right of the wrench */
-body.editing .img-slot{cursor:copy;outline:1px dashed rgba(26,26,24,.4);outline-offset:-2px}
-body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);outline-offset:2px;-webkit-user-select:text;user-select:text}
-.img-slot.drag{outline:1px solid var(--ink)!important}
 </style>
 
 <main class="home">
-  <div class="img-slot object" data-asset="bag" data-edit-img="home-object" aria-label="Object image">
-    <img src="assets/8f0cfbe15b.webp" alt="Translucent drawstring bag on a looped cord">
-  </div>
+  <div class="bag"><img src="assets/8f0cfbe15b.webp" alt="Translucent drawstring bag on a looped cord"></div>
   <nav aria-label="Main menu">
     <ul class="menu">
-      <li data-asset="jpg"><a href="#jpg" aria-label="images">jpg</a></li>
-      <li data-asset="mp3"><a href="#mp3" aria-label="music">mp3</a></li>
-      <li data-asset="mp4"><a href="#mp4" aria-label="video">mp4</a></li>
+      <li class="w-jpg"><a href="#jpg" aria-label="images">jpg</a></li>
+      <li class="w-mp3"><a href="#mp3" aria-label="music">mp3</a></li>
+      <li class="w-mp4"><a href="#mp4" aria-label="video">mp4</a></li>
     </ul>
   </nav>
-  <a class="miss" data-asset="miss" href="https://soundcloud.com/kil0five" target="_blank" rel="noopener" aria-label="kil0five on SoundCloud"><svg class="miss-sym" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><path d="M34.0,70.6 Q33.0,65.2 32.8,61.7 Q32.5,58.3 32.8,54.4 Q33.1,50.6 33.8,47.8 Q34.5,45.1 34.9,42.8 Q35.4,40.5 35.3,37.9 Q35.3,35.2 34.6,31.8 Q33.9,28.4 33.5,24.6 L33.0,20.8" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M31.9,69.2 Q32.8,62.1 33.8,60.0 Q34.9,57.8 35.2,55.6 Q35.6,53.4 35.8,50.6 Q36.0,47.7 35.2,43.6 Q34.4,39.5 33.7,35.7 Q33.0,31.8 32.5,29.6 Q32.0,27.3 32.6,25.3 L33.1,23.3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M74.8,60.9 Q74.5,55.1 75.0,52.9 Q75.4,50.6 76.1,48.0 Q76.8,45.4 77.0,41.7 Q77.2,38.1 77.2,34.4 Q77.2,30.7 76.5,27.8 Q75.9,24.8 75.2,22.7 Q74.6,20.6 74.7,17.9 L74.8,15.3" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M74.7,61.4 Q74.2,54.3 74.3,51.5 Q74.3,48.8 75.2,47.1 Q76.1,45.3 76.8,42.4 Q77.6,39.5 77.6,35.9 Q77.6,32.3 77.1,28.4 Q76.7,24.6 75.7,21.7 Q74.6,18.7 74.4,16.7 L74.2,14.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M34.4,21.2 Q45.5,18.3 51.0,17.8 Q56.6,17.4 61.6,16.8 Q66.6,16.2 71.5,15.5 Q76.4,14.9 75.9,16.1 Q75.3,17.4 74.9,18.2 Q74.6,19.0 74.6,19.2 Q74.7,19.5 74.8,20.2 Q75.0,21.0 70.1,21.9 Q65.3,22.9 60.5,24.2 Q55.7,25.5 50.8,27.1 Q45.9,28.8 40.6,30.0 L35.3,31.2" fill="currentColor" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M35.6,21.9 Q46.3,20.9 51.3,20.4 Q56.4,20.0 61.2,18.9 Q66.0,17.8 70.6,16.1 Q75.3,14.4 74.9,14.6 Q74.6,14.7 74.5,15.5 Q74.5,16.2 74.6,17.6 Q74.8,19.1 75.2,20.6 Q75.6,22.1 70.8,23.9 Q66.0,25.8 61.2,27.0 Q56.4,28.2 51.3,28.6 Q46.2,28.9 41.0,29.3 L35.8,29.7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M36.1,70.7 Q36.2,72.4 36.0,73.1 Q35.7,73.7 35.0,74.8 Q34.2,75.8 33.5,76.5 Q32.7,77.2 31.6,77.7 Q30.5,78.2 29.4,78.8 Q28.3,79.3 27.2,79.7 Q26.0,80.1 24.9,80.1 Q23.8,80.0 22.7,79.9 Q21.6,79.9 20.6,79.2 Q19.5,78.5 18.5,77.7 Q17.5,77.0 16.9,76.3 Q16.2,75.7 15.9,74.6 Q15.5,73.5 15.4,72.5 Q15.4,71.5 15.6,70.5 Q15.9,69.4 16.6,68.4 Q17.3,67.4 18.0,66.8 Q18.6,66.2 19.7,65.6 Q20.8,65.0 21.8,64.7 Q22.8,64.4 24.1,64.3 Q25.4,64.1 26.5,64.4 Q27.7,64.6 28.7,65.0 Q29.7,65.4 30.8,66.0 Q31.9,66.6 32.8,67.4 Q33.7,68.1 34.3,68.9 Q34.9,69.6 35.3,70.4 Q35.6,71.1 35.8,71.7 Q35.9,72.3 35.7,73.2 L35.5,74.1" fill="currentColor" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M37.1,71.1 Q36.6,72.7 36.1,72.9 Q35.6,73.2 35.2,73.9 Q34.7,74.5 33.8,74.9 Q32.8,75.3 31.5,76.1 Q30.3,76.8 28.9,77.4 Q27.5,77.9 26.4,78.3 Q25.2,78.7 24.0,78.9 Q22.8,79.1 21.8,79.2 Q20.7,79.3 19.7,78.8 Q18.8,78.3 17.7,78.1 Q16.5,77.9 16.1,77.2 Q15.6,76.5 15.5,75.9 Q15.4,75.2 15.3,74.3 Q15.2,73.4 15.7,72.3 Q16.1,71.3 16.8,70.1 Q17.5,68.9 18.3,67.9 Q19.1,66.9 20.2,66.1 Q21.3,65.3 22.3,64.6 Q23.3,64.0 24.8,63.6 Q26.4,63.3 27.5,63.2 Q28.6,63.1 29.5,63.5 Q30.4,63.8 31.3,64.2 Q32.2,64.6 33.3,65.5 Q34.3,66.3 34.7,67.4 Q35.1,68.4 35.5,69.4 Q35.8,70.3 35.8,71.3 Q35.8,72.3 35.6,73.3 L35.3,74.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M78.3,62.8 Q78.1,64.1 77.6,65.1 Q77.2,66.1 76.9,67.0 Q76.5,68.0 75.7,68.8 Q74.9,69.7 73.9,70.4 Q72.9,71.0 71.5,71.4 Q70.2,71.8 69.1,72.0 Q68.0,72.1 66.9,72.1 Q65.8,72.1 64.6,71.9 Q63.4,71.6 62.3,71.0 Q61.2,70.4 60.4,69.6 Q59.6,68.8 59.0,67.8 Q58.5,66.9 58.0,66.0 Q57.5,65.1 57.6,63.9 Q57.8,62.6 57.9,61.8 Q58.1,61.0 58.5,60.1 Q58.9,59.3 59.7,58.6 Q60.6,58.0 61.6,57.5 Q62.6,57.0 63.7,56.9 Q64.9,56.7 66.0,56.6 Q67.2,56.5 68.3,56.8 Q69.4,57.2 70.6,57.5 Q71.8,57.8 73.0,58.3 Q74.1,58.9 74.8,59.6 Q75.4,60.3 76.3,61.0 Q77.2,61.8 77.4,62.4 Q77.6,63.0 77.7,63.8 Q77.8,64.6 77.7,65.2 L77.6,65.8" fill="currentColor" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M77.1,64.0 Q76.7,66.5 75.9,67.5 Q75.1,68.6 74.3,69.4 Q73.5,70.3 72.8,70.8 Q72.2,71.4 71.1,71.7 Q70.0,71.9 68.9,72.1 Q67.8,72.2 67.1,72.3 Q66.3,72.4 65.2,72.0 Q64.2,71.5 63.3,70.6 Q62.5,69.7 61.8,69.1 Q61.1,68.6 60.8,67.8 Q60.5,67.0 60.2,65.9 Q59.8,64.7 60.0,64.1 Q60.3,63.4 60.4,62.5 Q60.4,61.6 60.7,61.2 Q61.0,60.7 61.5,60.2 Q61.9,59.6 62.7,59.4 Q63.5,59.2 64.1,59.0 Q64.6,58.7 65.5,58.7 Q66.3,58.7 67.2,58.6 Q68.0,58.6 68.7,58.7 Q69.3,58.9 70.1,59.0 Q70.9,59.2 71.8,59.4 Q72.7,59.7 73.2,60.0 Q73.6,60.3 74.1,60.5 Q74.6,60.8 74.7,61.1 Q74.9,61.5 74.8,61.8 Q74.8,62.2 74.8,62.8 L74.8,63.4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/></svg></a>
+  <a class="miss" href="https://soundcloud.com/kil0five" target="_blank" rel="noopener" aria-label="kil0five on SoundCloud"><svg class="miss-sym" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><path d="M34.0,70.6 Q33.0,65.2 32.8,61.7 Q32.5,58.3 32.8,54.4 Q33.1,50.6 33.8,47.8 Q34.5,45.1 34.9,42.8 Q35.4,40.5 35.3,37.9 Q35.3,35.2 34.6,31.8 Q33.9,28.4 33.5,24.6 L33.0,20.8" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M31.9,69.2 Q32.8,62.1 33.8,60.0 Q34.9,57.8 35.2,55.6 Q35.6,53.4 35.8,50.6 Q36.0,47.7 35.2,43.6 Q34.4,39.5 33.7,35.7 Q33.0,31.8 32.5,29.6 Q32.0,27.3 32.6,25.3 L33.1,23.3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M74.8,60.9 Q74.5,55.1 75.0,52.9 Q75.4,50.6 76.1,48.0 Q76.8,45.4 77.0,41.7 Q77.2,38.1 77.2,34.4 Q77.2,30.7 76.5,27.8 Q75.9,24.8 75.2,22.7 Q74.6,20.6 74.7,17.9 L74.8,15.3" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M74.7,61.4 Q74.2,54.3 74.3,51.5 Q74.3,48.8 75.2,47.1 Q76.1,45.3 76.8,42.4 Q77.6,39.5 77.6,35.9 Q77.6,32.3 77.1,28.4 Q76.7,24.6 75.7,21.7 Q74.6,18.7 74.4,16.7 L74.2,14.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M34.4,21.2 Q45.5,18.3 51.0,17.8 Q56.6,17.4 61.6,16.8 Q66.6,16.2 71.5,15.5 Q76.4,14.9 75.9,16.1 Q75.3,17.4 74.9,18.2 Q74.6,19.0 74.6,19.2 Q74.7,19.5 74.8,20.2 Q75.0,21.0 70.1,21.9 Q65.3,22.9 60.5,24.2 Q55.7,25.5 50.8,27.1 Q45.9,28.8 40.6,30.0 L35.3,31.2" fill="currentColor" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M35.6,21.9 Q46.3,20.9 51.3,20.4 Q56.4,20.0 61.2,18.9 Q66.0,17.8 70.6,16.1 Q75.3,14.4 74.9,14.6 Q74.6,14.7 74.5,15.5 Q74.5,16.2 74.6,17.6 Q74.8,19.1 75.2,20.6 Q75.6,22.1 70.8,23.9 Q66.0,25.8 61.2,27.0 Q56.4,28.2 51.3,28.6 Q46.2,28.9 41.0,29.3 L35.8,29.7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M36.1,70.7 Q36.2,72.4 36.0,73.1 Q35.7,73.7 35.0,74.8 Q34.2,75.8 33.5,76.5 Q32.7,77.2 31.6,77.7 Q30.5,78.2 29.4,78.8 Q28.3,79.3 27.2,79.7 Q26.0,80.1 24.9,80.1 Q23.8,80.0 22.7,79.9 Q21.6,79.9 20.6,79.2 Q19.5,78.5 18.5,77.7 Q17.5,77.0 16.9,76.3 Q16.2,75.7 15.9,74.6 Q15.5,73.5 15.4,72.5 Q15.4,71.5 15.6,70.5 Q15.9,69.4 16.6,68.4 Q17.3,67.4 18.0,66.8 Q18.6,66.2 19.7,65.6 Q20.8,65.0 21.8,64.7 Q22.8,64.4 24.1,64.3 Q25.4,64.1 26.5,64.4 Q27.7,64.6 28.7,65.0 Q29.7,65.4 30.8,66.0 Q31.9,66.6 32.8,67.4 Q33.7,68.1 34.3,68.9 Q34.9,69.6 35.3,70.4 Q35.6,71.1 35.8,71.7 Q35.9,72.3 35.7,73.2 L35.5,74.1" fill="currentColor" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M37.1,71.1 Q36.6,72.7 36.1,72.9 Q35.6,73.2 35.2,73.9 Q34.7,74.5 33.8,74.9 Q32.8,75.3 31.5,76.1 Q30.3,76.8 28.9,77.4 Q27.5,77.9 26.4,78.3 Q25.2,78.7 24.0,78.9 Q22.8,79.1 21.8,79.2 Q20.7,79.3 19.7,78.8 Q18.8,78.3 17.7,78.1 Q16.5,77.9 16.1,77.2 Q15.6,76.5 15.5,75.9 Q15.4,75.2 15.3,74.3 Q15.2,73.4 15.7,72.3 Q16.1,71.3 16.8,70.1 Q17.5,68.9 18.3,67.9 Q19.1,66.9 20.2,66.1 Q21.3,65.3 22.3,64.6 Q23.3,64.0 24.8,63.6 Q26.4,63.3 27.5,63.2 Q28.6,63.1 29.5,63.5 Q30.4,63.8 31.3,64.2 Q32.2,64.6 33.3,65.5 Q34.3,66.3 34.7,67.4 Q35.1,68.4 35.5,69.4 Q35.8,70.3 35.8,71.3 Q35.8,72.3 35.6,73.3 L35.3,74.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M78.3,62.8 Q78.1,64.1 77.6,65.1 Q77.2,66.1 76.9,67.0 Q76.5,68.0 75.7,68.8 Q74.9,69.7 73.9,70.4 Q72.9,71.0 71.5,71.4 Q70.2,71.8 69.1,72.0 Q68.0,72.1 66.9,72.1 Q65.8,72.1 64.6,71.9 Q63.4,71.6 62.3,71.0 Q61.2,70.4 60.4,69.6 Q59.6,68.8 59.0,67.8 Q58.5,66.9 58.0,66.0 Q57.5,65.1 57.6,63.9 Q57.8,62.6 57.9,61.8 Q58.1,61.0 58.5,60.1 Q58.9,59.3 59.7,58.6 Q60.6,58.0 61.6,57.5 Q62.6,57.0 63.7,56.9 Q64.9,56.7 66.0,56.6 Q67.2,56.5 68.3,56.8 Q69.4,57.2 70.6,57.5 Q71.8,57.8 73.0,58.3 Q74.1,58.9 74.8,59.6 Q75.4,60.3 76.3,61.0 Q77.2,61.8 77.4,62.4 Q77.6,63.0 77.7,63.8 Q77.8,64.6 77.7,65.2 L77.6,65.8" fill="currentColor" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M77.1,64.0 Q76.7,66.5 75.9,67.5 Q75.1,68.6 74.3,69.4 Q73.5,70.3 72.8,70.8 Q72.2,71.4 71.1,71.7 Q70.0,71.9 68.9,72.1 Q67.8,72.2 67.1,72.3 Q66.3,72.4 65.2,72.0 Q64.2,71.5 63.3,70.6 Q62.5,69.7 61.8,69.1 Q61.1,68.6 60.8,67.8 Q60.5,67.0 60.2,65.9 Q59.8,64.7 60.0,64.1 Q60.3,63.4 60.4,62.5 Q60.4,61.6 60.7,61.2 Q61.0,60.7 61.5,60.2 Q61.9,59.6 62.7,59.4 Q63.5,59.2 64.1,59.0 Q64.6,58.7 65.5,58.7 Q66.3,58.7 67.2,58.6 Q68.0,58.6 68.7,58.7 Q69.3,58.9 70.1,59.0 Q70.9,59.2 71.8,59.4 Q72.7,59.7 73.2,60.0 Q73.6,60.3 74.1,60.5 Q74.6,60.8 74.7,61.1 Q74.9,61.5 74.8,61.8 Q74.8,62.2 74.8,62.8 L74.8,63.4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/></svg></a>
 </main>
 
-<button class="wrench" id="wrench" type="button" aria-pressed="false" aria-label="settings (password)" title="settings"><svg class="wrench-sym" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><path d="M82.0,27.1 Q82.8,30.0 83.3,31.4 Q83.7,32.8 83.7,34.5 Q83.6,36.2 83.3,37.7 Q82.9,39.1 82.5,40.8 Q82.0,42.4 81.3,43.8 Q80.6,45.3 79.8,46.7 Q79.0,48.1 77.8,49.2 Q76.5,50.2 75.4,51.0 Q74.3,51.8 72.6,52.3 Q71.0,52.8 69.5,53.0 Q67.9,53.3 66.3,53.2 Q64.7,53.0 63.1,52.5 Q61.5,52.0 60.0,51.4 Q58.5,50.7 57.0,49.8 Q55.5,48.8 54.2,47.5 Q53.0,46.2 51.7,44.9 Q50.4,43.5 49.7,42.0 Q49.0,40.5 48.4,39.1 Q47.7,37.7 47.3,36.2 Q46.9,34.7 46.8,33.1 Q46.7,31.6 46.8,30.1 Q47.0,28.7 47.6,27.5 Q48.2,26.4 49.1,25.2 Q50.0,24.0 50.9,23.2 Q51.7,22.4 53.1,21.4 Q54.4,20.4 55.8,20.0 Q57.2,19.5 58.8,18.8 Q60.4,18.1 61.9,17.7 Q63.4,17.4 65.2,17.4 L67.0,17.4" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M82.5,28.9 Q82.3,32.4 82.2,34.3 Q82.2,36.2 82.2,37.8 Q82.1,39.4 81.7,40.8 Q81.3,42.2 80.5,43.3 Q79.6,44.4 78.9,45.8 Q78.2,47.2 77.2,47.8 Q76.2,48.4 75.2,49.0 Q74.2,49.6 73.2,50.1 Q72.2,50.6 70.8,50.7 Q69.3,50.9 68.4,50.5 Q67.5,50.1 66.1,50.0 Q64.6,49.8 63.3,49.7 Q62.0,49.6 60.7,48.8 Q59.5,48.1 58.3,47.8 Q57.2,47.4 56.2,46.7 Q55.1,46.0 54.3,44.9 Q53.4,43.8 52.6,42.7 Q51.7,41.7 50.9,40.8 Q50.1,39.9 49.6,38.5 Q49.1,37.1 48.7,35.7 Q48.2,34.3 48.3,32.9 Q48.4,31.5 48.7,30.3 Q49.1,29.1 49.4,27.3 Q49.7,25.6 50.5,24.1 Q51.3,22.7 52.4,21.5 Q53.4,20.3 54.6,19.1 Q55.9,17.9 57.2,16.8 Q58.5,15.8 59.7,15.2 Q60.9,14.7 62.8,14.4 L64.7,14.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M70.2,18.4 Q69.7,20.4 69.8,21.0 Q69.9,21.7 69.9,22.8 Q69.8,24.0 70.1,25.2 Q70.4,26.5 71.1,27.4 Q71.7,28.3 71.8,29.0 Q71.9,29.8 72.0,30.6 Q72.0,31.5 72.2,31.5 Q72.3,31.4 73.1,30.8 Q73.8,30.1 75.0,29.4 Q76.1,28.8 77.6,28.3 Q79.1,27.7 80.7,27.7 L82.2,27.7" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M69.4,16.4 Q69.4,20.6 69.7,22.2 Q70.0,23.9 70.1,25.2 Q70.1,26.6 70.4,27.4 Q70.6,28.2 71.4,27.7 Q72.1,27.2 72.4,27.4 Q72.7,27.6 72.4,27.9 Q72.1,28.2 71.8,29.4 Q71.4,30.5 72.4,31.0 Q73.5,31.5 74.5,31.3 Q75.5,31.0 77.1,30.7 Q78.7,30.3 80.7,29.2 L82.7,28.1" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M51.8,40.5 Q49.6,41.6 47.9,42.7 Q46.3,43.7 44.4,45.5 Q42.6,47.3 41.0,49.3 Q39.5,51.2 38.0,52.7 Q36.6,54.2 35.6,54.9 Q34.7,55.6 34.0,56.1 Q33.4,56.7 32.5,57.9 Q31.6,59.1 30.2,61.1 L28.8,63.1" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M52.1,38.7 Q50.4,42.8 48.8,45.0 Q47.3,47.2 45.5,47.9 Q43.7,48.6 41.5,49.1 Q39.2,49.5 37.7,50.1 Q36.2,50.7 35.2,52.3 Q34.3,54.0 33.6,56.4 Q32.9,58.9 32.4,60.5 Q31.8,62.1 30.9,63.2 L30.0,64.4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M60.7,50.2 Q59.0,53.1 57.6,53.8 Q56.1,54.6 54.3,55.2 Q52.4,55.8 50.6,56.9 Q48.8,57.9 47.4,59.8 Q46.1,61.8 45.0,63.6 Q43.9,65.5 43.0,66.9 Q42.1,68.3 41.5,69.1 Q40.9,69.9 39.5,70.4 L38.2,71.0" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M58.0,48.6 Q56.1,49.8 55.4,51.8 Q54.8,53.7 54.0,55.8 Q53.3,57.8 52.4,59.7 Q51.5,61.6 49.8,62.1 Q48.1,62.6 46.4,63.2 Q44.7,63.7 42.8,64.7 Q40.9,65.6 39.2,67.2 Q37.6,68.7 36.9,70.9 L36.1,73.1" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M36.1,74.8 Q36.0,77.7 36.0,78.9 Q35.9,80.1 35.4,81.3 Q34.9,82.5 34.2,83.4 Q33.5,84.3 32.6,84.8 Q31.7,85.3 30.6,85.4 Q29.4,85.6 28.2,85.5 Q27.0,85.4 25.8,85.0 Q24.6,84.6 23.5,83.8 Q22.5,83.1 21.2,82.0 Q19.9,80.9 18.9,80.1 Q17.8,79.3 17.3,78.1 Q16.7,77.0 16.0,75.9 Q15.4,74.9 15.1,73.7 Q14.9,72.5 14.8,71.5 Q14.7,70.5 15.0,69.6 Q15.3,68.6 16.2,68.0 Q17.0,67.4 17.7,66.7 Q18.4,66.0 19.5,65.5 Q20.6,65.0 21.9,64.8 Q23.3,64.6 24.5,64.6 Q25.7,64.5 27.2,64.7 Q28.7,64.8 29.7,65.1 Q30.8,65.4 31.9,65.9 Q33.1,66.5 34.1,67.2 Q35.1,67.9 36.1,68.7 Q37.0,69.4 37.5,70.5 Q37.9,71.6 38.1,72.7 L38.3,73.8" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M37.4,73.1 Q37.3,74.9 37.3,75.8 Q37.2,76.7 36.8,77.7 Q36.3,78.8 35.4,80.1 Q34.4,81.4 33.4,82.2 Q32.3,83.1 30.9,83.5 Q29.6,83.9 28.4,84.5 Q27.1,85.0 25.7,85.0 Q24.2,85.0 23.1,85.0 Q21.9,85.0 20.3,84.6 Q18.8,84.3 17.8,83.3 Q16.9,82.3 15.8,81.3 Q14.7,80.2 14.1,78.7 Q13.5,77.1 13.5,75.5 Q13.5,74.0 13.6,72.4 Q13.7,70.9 14.2,69.4 Q14.7,67.8 15.4,66.5 Q16.1,65.2 17.3,64.4 Q18.5,63.7 19.6,62.6 Q20.7,61.6 22.2,61.5 Q23.8,61.5 25.4,61.5 Q27.0,61.6 28.4,61.9 Q29.8,62.1 31.1,62.9 Q32.3,63.7 33.6,65.1 Q34.8,66.5 35.9,67.7 Q37.0,69.0 37.7,70.3 Q38.3,71.5 38.6,73.1 Q38.8,74.6 38.8,75.7 L38.8,76.9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M29.8,73.6 Q29.9,74.4 29.7,74.8 Q29.5,75.2 28.9,75.8 Q28.3,76.5 27.4,76.8 Q26.4,77.1 25.2,77.3 Q23.9,77.5 23.2,77.2 Q22.4,76.9 21.9,76.0 Q21.4,75.2 21.6,74.1 Q21.8,73.0 22.3,71.9 Q22.9,70.8 23.7,70.0 Q24.6,69.2 25.6,69.3 Q26.7,69.3 27.7,69.8 Q28.7,70.3 29.4,71.4 Q30.2,72.6 30.5,73.9 L30.8,75.2" fill="currentColor" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M30.3,76.0 Q30.8,77.2 30.5,77.3 Q30.2,77.5 29.2,77.4 Q28.2,77.2 27.1,76.6 Q26.1,75.9 25.0,75.2 Q23.9,74.4 23.1,74.3 Q22.3,74.3 21.5,74.0 Q20.8,73.7 20.9,73.5 Q21.0,73.3 21.8,73.3 Q22.6,73.2 23.4,72.5 Q24.2,71.9 25.8,71.8 Q27.4,71.7 28.5,71.1 Q29.7,70.5 30.4,70.7 Q31.1,70.8 31.0,71.5 L31.0,72.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/></svg></button>
-<input type="file" id="picker" accept="image/*" hidden>
-
-<script>/* da tools */
-/*! da tools v2.1 · New Moon Mining Company (newmoonmining.co)
- *  Squarespace in a box: per-asset move / resize / adjust / export for any page.
- *  Use:  mark elements with data-asset="name", include this script, then
- *        DaTools.init({ password:'password', key:'my-page' })
- *  Unlocked: drag an asset to move it, drag a corner to resize it, click it to open its own box
- *  of sliders (click again to close). "undo" steps back one change. "export" copies every asset's
- *  settings (and any page panels) as CSS + JSON.
- *  Works alongside existing transforms: it uses the separate CSS translate / scale / rotate
- *  properties, stored in vw/vh so layouts hold at any window size.
- *  Optional:
- *    button:  an element of your own to use as the on/off switch (else a "da tools" pill is made)
- *    dock:    'right' (default) or 'left' — which bottom corner the bar sits in
- *    panels:  [{name, title, get:()=>obj, set:patch=>{}, controls:[{k,label,type,min,max,step,options}]}]
- *             types: range · select · color · colors · check · text. Each gets a bar button.
- *    actions: [{label, toggle:true, onClick:on=>{}}] extra bar buttons (e.g. a content-edit mode)
- *    onChange(name,value) · onToggle(on)
- *  Returns { isOn, lock, pause(bool), undo, rekey(key,defaults), export, set, get } */
-(function(){
-'use strict';
-const D={x:0,y:0,s:1,r:0,o:1,z:''};                               // per asset: x/y in vw/vh, scale, rotate°, opacity, layer
-const CSS=`
-.dt-on [data-asset]{cursor:move;touch-action:none;outline:1px dashed rgba(26,26,24,.35);outline-offset:2px}
-.dt-on [data-asset].dt-sel{outline:1px solid #1a1a18}
-.dt-bar{position:fixed;z-index:2147483000;bottom:calc(14px + env(safe-area-inset-bottom,0px));
-  display:flex;gap:6px;align-items:center;font:600 10px/1 ui-monospace,"SF Mono",Menlo,Consolas,monospace;letter-spacing:.04em}
-.dt-bar.dt-r{right:calc(14px + env(safe-area-inset-right,0px));flex-direction:row}
-.dt-bar.dt-l{left:calc(var(--dt-inset,14px) + env(safe-area-inset-left,0px));flex-direction:row}
-.dt-bar button,.dt-gate button{font:inherit;color:#1a1a18;background:rgba(255,255,255,.9);border:1px solid rgba(26,26,24,.35);border-radius:13px;padding:7px 11px;cursor:pointer}
-.dt-bar button:hover,.dt-bar button:focus-visible{border-color:#1a1a18;outline:none}
-.dt-bar button[aria-pressed=true]{background:#1a1a18;color:#fff;border-color:#1a1a18}
-.dt-bar button:disabled{opacity:.35;cursor:default}
-.dt-bar .dt-undo{padding:5px 8px;font-size:12px;line-height:1}
-.dt-gate{position:fixed;z-index:2147483001;bottom:calc(52px + env(safe-area-inset-bottom,0px));
-  display:flex;gap:6px;font:11px/1 ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:#fff;border:1px solid #1a1a18;border-radius:8px;padding:6px}
-.dt-gate.dt-r{right:calc(14px + env(safe-area-inset-right,0px))}
-.dt-gate.dt-l{left:calc(14px + env(safe-area-inset-left,0px))}
-.dt-gate input{font:inherit;width:130px;padding:6px;border:1px solid rgba(26,26,24,.3);border-radius:4px}
-.dt-gate.dt-no{animation:dt-shake .3s}
-@keyframes dt-shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-.dt-frame{position:fixed;z-index:2147482999;pointer-events:none;border:1px solid #1a1a18}
-.dt-h{position:absolute;width:12px;height:12px;background:#fff;border:1px solid #1a1a18;pointer-events:auto;touch-action:none}
-.dt-h[data-c=nw]{left:-7px;top:-7px;cursor:nwse-resize}.dt-h[data-c=ne]{right:-7px;top:-7px;cursor:nesw-resize}
-.dt-h[data-c=sw]{left:-7px;bottom:-7px;cursor:nesw-resize}.dt-h[data-c=se]{right:-7px;bottom:-7px;cursor:nwse-resize}
-.dt-box{position:fixed;z-index:2147482995;width:230px;max-height:calc(100vh - 80px);overflow:auto;background:rgba(250,250,248,.96);color:#1a1a18;border:1px solid rgba(26,26,24,.2);border-radius:6px;
-  box-shadow:0 8px 24px rgba(26,26,24,.16);font:11px/1.3 ui-monospace,"SF Mono",Menlo,Consolas,monospace;padding:8px 10px 10px;display:grid;gap:6px}
-.dt-box.dt-wide{width:260px}
-.dt-box header{display:flex;justify-content:space-between;align-items:center;text-transform:uppercase;letter-spacing:.08em;font-size:10px;cursor:grab;touch-action:none}
-.dt-box header button{all:unset;cursor:pointer;padding:0 4px;font-size:13px;opacity:.6}
-.dt-row{display:grid;grid-template-columns:52px minmax(0,1fr) 58px;gap:6px;align-items:center}
-.dt-wide .dt-row{grid-template-columns:72px minmax(0,1fr) 58px}
-.dt-row.dt-span>:last-child{grid-column:2 / -1}
-.dt-row label{opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dt-row input[type=range]{width:100%;margin:0;accent-color:#1a1a18}
-.dt-row input[type=number],.dt-row input[type=text],.dt-row select{width:100%;min-width:0;box-sizing:border-box;font:inherit;color:inherit;padding:2px 3px;border:1px solid rgba(26,26,24,.2);border-radius:3px;background:#fff}
-.dt-row input[type=number]{text-align:right;font-variant-numeric:tabular-nums}
-.dt-row input[type=color]{width:100%;height:20px;padding:0;border:1px solid rgba(26,26,24,.2);border-radius:3px;background:#fff}
-.dt-row input[type=checkbox]{justify-self:start;margin:0;accent-color:#1a1a18}
-.dt-row .dt-sw{display:flex;gap:3px}.dt-row .dt-sw input{flex:1;min-width:0}
-.dt-box .dt-reset{justify-self:start;font:inherit;background:#fff;border:1px solid rgba(26,26,24,.2);border-radius:3px;padding:3px 8px;cursor:pointer}
-.dt-out{position:fixed;z-index:2147483001;left:50%;transform:translateX(-50%);bottom:calc(56px + env(safe-area-inset-bottom,0px));width:min(520px,calc(100vw - 32px));
-  height:160px;font:10px/1.4 ui-monospace,Menlo,monospace;border:1px solid #1a1a18;border-radius:4px;padding:6px;background:#fff;color:#1a1a18}
-@media (prefers-reduced-motion:reduce){.dt-gate.dt-no{animation:none}}`;
-const SL=[['x','X vw',-100,100,.1],['y','Y vh',-100,100,.1],['s','scale',.05,5,.01],['r','rotate',-180,180,.5],['o','opacity',0,1,.01],['z','layer',-10,50,1]];
-const esc=s=>String(s).replace(/[<&"]/g,c=>({'<':'&lt;','&':'&amp;','"':'&quot;'}[c]));
-
-function init(opts){
-  opts=Object.assign({password:'password',key:location.pathname,label:'da tools',defaults:{},dock:'right',panels:[],actions:[]},opts||{});
-  let K='datools:'+opts.key; const store={
-    get(k){try{return JSON.parse(localStorage.getItem(K+k))}catch(e){return null}},
-    set(k,v){try{localStorage.setItem(K+k,JSON.stringify(v))}catch(e){}} };
-  let st=Object.assign({},opts.defaults,store.get(':assets')||{});        // name -> {x,y,s,r,o,z}
-  const style=document.createElement('style'); style.textContent=CSS; document.head.appendChild(style);
-  const assets=()=>[...document.querySelectorAll('[data-asset]')];
-  const val=n=>Object.assign({},D,st[n]||{});
-  function rect(el){                                                  // what you see: the element plus anything drawn outside it
-    let r=el.getBoundingClientRect(), L=r.left,T=r.top,R=r.right,B=r.bottom;
-    [...el.querySelectorAll('*')].slice(0,80).forEach(c=>{ const q=c.getBoundingClientRect(); if(!q.width&&!q.height) return;
-      L=Math.min(L,q.left); T=Math.min(T,q.top); R=Math.max(R,q.right); B=Math.max(B,q.bottom) });
-    return {left:L,top:T,right:R,bottom:B,width:R-L,height:B-T};
-  }
-  function paint(el){
-    const v=val(el.dataset.asset);
-    el.style.translate=(v.x||v.y)?`${v.x}vw ${v.y}vh`:'';
-    el.style.scale=v.s!==1?String(v.s):''; el.style.rotate=v.r?`${v.r}deg`:'';
-    el.style.opacity=v.o!==1?String(v.o):''; el.style.zIndex=v.z===''?'':String(v.z);
-  }
-  function setv(n,patch){ st[n]=Object.assign(val(n),patch); store.set(':assets',st);
-    assets().filter(a=>a.dataset.asset===n).forEach(paint); syncBox(n); frames(); if(opts.onChange) opts.onChange(n,val(n)) }
-  assets().forEach(paint);
-
-  /* undo: every gesture (a drag, a slider pull, a reset, a nudge) leaves one step to go back to */
-  const hist=[];
-  function remember(undo){ hist.push(undo); if(hist.length>200) hist.shift(); undoB.disabled=false }
-  function rememberAsset(n){ const had=n in st, prev=had?Object.assign({},st[n]):null;
-    remember(()=>{ if(had) st[n]=prev; else delete st[n]; store.set(':assets',st);
-      assets().filter(a=>a.dataset.asset===n).forEach(paint); syncBox(n); frames(); if(opts.onChange) opts.onChange(n,val(n)) }) }
-  function rememberPanel(p){ const prev=JSON.parse(JSON.stringify(p.get())); remember(()=>{ p.set(prev); syncPanel(p) }) }
-  function undo(){ const u=hist.pop(); if(u) u(); undoB.disabled=!hist.length }
-
-  /* toolbar + password gate */
-  const dock=opts.dock==='left'?'dt-l':'dt-r';
-  const bar=document.createElement('div'); bar.className='dt-bar '+dock;
-  bar.innerHTML=`<button type="button" class="dt-undo" title="undo (ctrl/cmd + z)" aria-label="undo" disabled hidden>↶</button>`+
-    opts.panels.map((p,i)=>`<button type="button" class="dt-pb" data-i="${i}" aria-pressed="false" hidden>${esc(p.label||p.name)}</button>`).join('')+
-    opts.actions.map((a,i)=>`<button type="button" class="dt-ab" data-i="${i}" ${a.toggle?'aria-pressed="false"':''} hidden>${esc(a.label)}</button>`).join('')+
-    `<button type="button" class="dt-exp" hidden>export</button>`+
-    (opts.button?'':`<button type="button" class="dt-main" aria-pressed="false">${esc(opts.label)}</button>`);
-  document.body.appendChild(bar);
-  const mainB=opts.button||bar.querySelector('.dt-main'), expB=bar.querySelector('.dt-exp'), undoB=bar.querySelector('.dt-undo');
-  const extra=[...bar.querySelectorAll('.dt-undo,.dt-pb,.dt-ab,.dt-exp')];
-  let on=false, paused=false, gate=null;
-  const okSession=()=>{try{return sessionStorage.getItem(K+':ok')==='1'}catch(e){return false}};
-  mainB.addEventListener('click',()=>{
-    if(on) return lock();
-    if(okSession()) return unlock();
-    if(gate){ gate.remove(); gate=null; return }
-    gate=document.createElement('form'); gate.className='dt-gate '+dock;
-    gate.innerHTML='<input type="password" id="dt-pass" aria-label="da tools password" placeholder="password" autocomplete="off"><button type="submit">go</button>';
-    document.body.appendChild(gate); gate.querySelector('input').focus();
-    gate.addEventListener('submit',e=>{ e.preventDefault();
-      if(gate.querySelector('input').value===opts.password){ try{sessionStorage.setItem(K+':ok','1')}catch(err){} gate.remove(); gate=null; unlock() }
-      else { gate.classList.remove('dt-no'); void gate.offsetWidth; gate.classList.add('dt-no'); gate.querySelector('input').select() } });
-  });
-  function unlock(){ on=true; document.documentElement.classList.add('dt-on'); mainB.setAttribute('aria-pressed','true'); if(!opts.button) mainB.textContent='lock';
-    extra.forEach(b=>b.hidden=false); if(opts.onToggle) opts.onToggle(true) }
-  function lock(){ on=false; pause(false); document.documentElement.classList.remove('dt-on'); mainB.setAttribute('aria-pressed','false'); if(!opts.button) mainB.textContent=opts.label;
-    extra.forEach(b=>b.hidden=true); Object.keys(boxes).forEach(close); Object.keys(pboxes).forEach(closePanel); if(out) out.hidden=true;
-    bar.querySelectorAll('.dt-ab[aria-pressed=true]').forEach(b=>{ b.setAttribute('aria-pressed','false'); opts.actions[b.dataset.i].onClick(false) });
-    if(opts.onToggle) opts.onToggle(false) }
-  function pause(p){ paused=p; document.documentElement.classList.toggle('dt-on',on&&!p); if(p){ Object.keys(boxes).forEach(close) } }
-  undoB.addEventListener('click',undo);
-  bar.querySelectorAll('.dt-ab').forEach(b=>b.addEventListener('click',()=>{ const a=opts.actions[b.dataset.i];
-    if(a.toggle){ const now=b.getAttribute('aria-pressed')!=='true'; b.setAttribute('aria-pressed',now); a.onClick(now) } else a.onClick() }));
-  bar.querySelectorAll('.dt-pb').forEach(b=>b.addEventListener('click',()=>{ const i=+b.dataset.i; pboxes[i]?closePanel(i):openPanel(i) }));
-
-  /* per-asset boxes */
-  const boxes={}; let out=null;
-  function open(el){
-    const n=el.dataset.asset, b=document.createElement('div'); b.className='dt-box'; b.dataset.for=n;
-    b.innerHTML=`<header><span>${esc(n)}</span><button type="button" aria-label="Close">✕</button></header>`+
-      SL.map(([k,l,mn,mx,sp])=>`<div class="dt-row"><label for="dt-${esc(n)}-${k}">${l}</label><input type="range" id="dt-${esc(n)}-${k}" data-k="${k}" min="${mn}" max="${mx}" step="${sp}"><input type="number" data-k="${k}" step="${sp}" aria-label="${l}"></div>`).join('')+
-      `<button type="button" class="dt-reset">reset ${esc(n)}</button>`;
-    document.body.appendChild(b); boxes[n]=b; el.classList.add('dt-sel');
-    let g=false;                                                       // one undo step per slider pull
-    b.querySelectorAll('input').forEach(i=>{
-      i.addEventListener('input',()=>{ const v=parseFloat(i.value); if(isNaN(v)) return; if(!g){ rememberAsset(n); g=true } setv(n,{[i.dataset.k]:v}) });
-      i.addEventListener('change',()=>g=false) });
-    b.querySelector('header button').onclick=()=>close(n);
-    b.querySelector('.dt-reset').onclick=()=>{ rememberAsset(n); setv(n,Object.assign({},D,opts.defaults[n]||{})) };
-    const r=rect(el), n0=Object.keys(boxes).length-1;
-    place(b, r.right+12>innerWidth-240?r.left-242:r.right+12, Math.max(8,r.top)+n0*16);
-    grab(b.querySelector('header'),(dx,dy,s)=>place(b,s.x+dx,s.y+dy),()=>({x:b.offsetLeft,y:b.offsetTop}));
-    syncBox(n); frames();
-  }
-  function place(b,x,y){ b.style.left=Math.max(8,Math.min(innerWidth-b.offsetWidth-8,x))+'px'; b.style.top=Math.max(8,Math.min(innerHeight-b.offsetHeight-8,y))+'px' }
-  function close(n){ if(boxes[n]){ boxes[n].remove(); delete boxes[n] } assets().filter(a=>a.dataset.asset===n).forEach(a=>a.classList.remove('dt-sel')); frames() }
-  function syncBox(n){ const b=boxes[n]; if(!b) return; const v=val(n);
-    b.querySelectorAll('input').forEach(i=>{ if(document.activeElement!==i) i.value=v[i.dataset.k]===''?0:v[i.dataset.k] }) }
-
-  /* page panels: whole-page settings (type, colour...) the page hands in */
-  const pboxes={};
-  function openPanel(i){
-    const p=opts.panels[i], b=document.createElement('div'); b.className='dt-box dt-wide'; pboxes[i]=b;
-    b.innerHTML=`<header><span>${esc(p.title||p.name)}</span><button type="button" aria-label="Close">✕</button></header>`;
-    const v=p.get(); let g=false;
-    const begin=()=>{ if(!g){ rememberPanel(p); g=true } }, end=()=>{ g=false };
-    p.controls.forEach(c=>{
-      const row=document.createElement('div'); row.className='dt-row'; const id=`dt-p${i}-${c.k}`;
-      row.innerHTML=`<label for="${id}">${esc(c.label||c.k)}</label>`;
-      const fire=x=>{ begin(); p.set({[c.k]:x}); syncPanel(p,c.k) };
-      if(c.type==='range'){
-        const r=Object.assign(document.createElement('input'),{type:'range',id,min:c.min,max:c.max,step:c.step}), n=Object.assign(document.createElement('input'),{type:'number',step:c.step});
-        n.setAttribute('aria-label',c.label||c.k); r.dataset.k=n.dataset.k=c.k;
-        [r,n].forEach(x=>{ x.addEventListener('input',()=>{ const f=parseFloat(x.value); if(!isNaN(f)) fire(f) }); x.addEventListener('change',end) });
-        row.append(r,n);
-      } else {
-        row.classList.add('dt-span'); let el;
-        if(c.type==='select'){ el=document.createElement('select'); c.options.forEach(o=>el.add(new Option(o,o))); el.addEventListener('change',()=>{ fire(el.value); end() }) }
-        else if(c.type==='check'){ el=Object.assign(document.createElement('input'),{type:'checkbox'}); el.addEventListener('change',()=>{ fire(el.checked); end() }) }
-        else if(c.type==='color'){ el=Object.assign(document.createElement('input'),{type:'color'}); el.addEventListener('input',()=>fire(el.value)); el.addEventListener('change',end) }
-        else if(c.type==='colors'){ el=document.createElement('div'); el.className='dt-sw';
-          (v[c.k]||[]).forEach((col,j)=>{ const s=Object.assign(document.createElement('input'),{type:'color'}); s.setAttribute('aria-label',(c.label||c.k)+' '+(j+1));
-            s.addEventListener('input',()=>{ const a=[...p.get()[c.k]]; a[j]=s.value; fire(a) }); s.addEventListener('change',end); el.appendChild(s) }) }
-        else { el=Object.assign(document.createElement('input'),{type:'text',placeholder:c.placeholder||'',spellcheck:false}); el.addEventListener('change',()=>{ fire(el.value); end() }) }
-        el.id=id; el.dataset.k=c.k; row.append(el);
-      }
-      b.appendChild(row);
-    });
-    const rs=document.createElement('button'); rs.type='button'; rs.className='dt-reset'; rs.textContent='reset '+(p.title||p.name);
-    rs.onclick=()=>{ if(!p.reset) return; rememberPanel(p); p.reset(); syncPanel(p) }; if(p.reset) b.appendChild(rs);
-    document.body.appendChild(b);
-    const n0=Object.keys(pboxes).length-1;
-    place(b, opts.dock==='left'?12+n0*272:innerWidth-272-n0*272, 12);
-    grab(b.querySelector('header'),(dx,dy,s)=>place(b,s.x+dx,s.y+dy),()=>({x:b.offsetLeft,y:b.offsetTop}));
-    b.querySelector('header button').onclick=()=>closePanel(i);
-    bar.querySelector(`.dt-pb[data-i="${i}"]`).setAttribute('aria-pressed','true');
-    syncPanel(p);
-  }
-  function closePanel(i){ if(pboxes[i]){ pboxes[i].remove(); delete pboxes[i] } const b=bar.querySelector(`.dt-pb[data-i="${i}"]`); if(b) b.setAttribute('aria-pressed','false') }
-  function syncPanel(p,skip){ const i=opts.panels.indexOf(p), b=pboxes[i]; if(!b) return; const v=p.get();
-    b.querySelectorAll('[data-k]').forEach(el=>{ const k=el.dataset.k; if(document.activeElement===el) return;
-      if(el.type==='checkbox') el.checked=!!v[k];
-      else if(el.classList.contains('dt-sw')) [...el.children].forEach((s,j)=>{ if(document.activeElement!==s) s.value=(v[k]||[])[j] });
-      else el.value=v[k] }) }
-
-  /* frames with corner handles on open assets */
-  const fr={};
-  function frames(){
-    Object.keys(fr).forEach(n=>{ if(!boxes[n]){ fr[n].remove(); delete fr[n] } });
-    Object.keys(boxes).forEach(n=>{
-      const el=assets().find(a=>a.dataset.asset===n); if(!el) return;
-      let f=fr[n];
-      if(!f){ f=fr[n]=document.createElement('div'); f.className='dt-frame';
-        f.innerHTML=['nw','ne','sw','se'].map(c=>`<span class="dt-h" data-c="${c}"></span>`).join(''); document.body.appendChild(f);
-        f.querySelectorAll('.dt-h').forEach(h=>grab(h,(dx,dy,s,e)=>{
-          const d=Math.hypot(e.clientX-s.cx,e.clientY-s.cy); setv(n,{s:+Math.max(.05,s.s*d/s.d).toFixed(3)}) },
-          e=>{ rememberAsset(n); const r=rect(el), cx=r.left+r.width/2, cy=r.top+r.height/2; return {cx,cy,s:val(n).s,d:Math.max(1,Math.hypot(e.clientX-cx,e.clientY-cy))} })) }
-      const r=rect(el); Object.assign(f.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
-    });
-  }
-  addEventListener('resize',frames); addEventListener('scroll',frames,true);
-  (function tick(){ if(on&&Object.keys(boxes).length) frames(); requestAnimationFrame(tick) })();   // follow assets that animate
-
-  /* drag helper: fn(dx,dy,startState,event) */
-  function grab(h,fn,start){
-    h.addEventListener('pointerdown',e=>{ if(e.button>0) return; e.preventDefault(); e.stopPropagation(); h.setPointerCapture(e.pointerId);
-      const s=start(e), x=e.clientX, y=e.clientY;
-      const mv=ev=>fn(ev.clientX-x,ev.clientY-y,s,ev), up=()=>{ h.removeEventListener('pointermove',mv); h.removeEventListener('pointerup',up); h.removeEventListener('pointercancel',up) };
-      h.addEventListener('pointermove',mv); h.addEventListener('pointerup',up); h.addEventListener('pointercancel',up) });
-  }
-
-  /* while unlocked, assets belong to da tools: click toggles its box, drag moves it */
-  let press=null;
-  const live=()=>on&&!paused;
-  document.addEventListener('pointerdown',e=>{
-    if(!live()||e.button>0) return; const el=e.target.closest('[data-asset]'); if(!el||e.target.closest('.dt-box,.dt-bar,.dt-frame')) return;
-    e.preventDefault(); e.stopPropagation(); const v=val(el.dataset.asset);
-    press={el,n:el.dataset.asset,x:e.clientX,y:e.clientY,vx:v.x,vy:v.y,moved:false};
-  },true);
-  document.addEventListener('pointermove',e=>{ if(!press) return; e.stopPropagation();
-    const dx=e.clientX-press.x, dy=e.clientY-press.y; if(!press.moved&&Math.abs(dx)+Math.abs(dy)>4){ press.moved=true; rememberAsset(press.n) }
-    if(press.moved) setv(press.n,{x:+(press.vx+dx/innerWidth*100).toFixed(2),y:+(press.vy+dy/innerHeight*100).toFixed(2)}) },true);
-  document.addEventListener('pointerup',e=>{ if(!press) return; e.stopPropagation(); const p=press; press=null;
-    if(!p.moved){ boxes[p.n]?close(p.n):open(p.el) } },true);
-  ['click','dblclick','contextmenu','wheel'].forEach(t=>document.addEventListener(t,e=>{ if(live()&&e.target.closest&&e.target.closest('[data-asset]')){ e.preventDefault(); e.stopPropagation() } },{capture:true,passive:false}));
-  document.addEventListener('keydown',e=>{
-    if(!on||e.target.closest('input,textarea,select,[contenteditable]')) return;
-    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'){ e.preventDefault(); undo(); return }
-    if(paused) return;
-    if(e.key==='Escape'){ Object.keys(boxes).length?Object.keys(boxes).forEach(close):lock(); return }
-    const m={ArrowLeft:['x',-.5],ArrowRight:['x',.5],ArrowUp:['y',-.5],ArrowDown:['y',.5]}[e.key]; if(!m||!Object.keys(boxes).length) return;
-    e.preventDefault(); Object.keys(boxes).forEach(n=>{ rememberAsset(n); setv(n,{[m[0]]:+(val(n)[m[0]]+m[1]*(e.shiftKey?10:1)).toFixed(2)}) });
-  },true);
-
-  /* export: CSS to paste into the page + JSON to hand back to da tools as defaults */
-  function exportText(){
-    const names=[...new Set(assets().map(a=>a.dataset.asset))];
-    const css=names.map(n=>{ const v=val(n), p=[];
-      if(v.x||v.y) p.push(`translate:${v.x}vw ${v.y}vh`); if(v.s!==1) p.push(`scale:${v.s}`); if(v.r) p.push(`rotate:${v.r}deg`);
-      if(v.o!==1) p.push(`opacity:${v.o}`); if(v.z!=='') p.push(`z-index:${v.z}`);
-      return p.length?`[data-asset="${n}"]{${p.join(';')}}`:''; }).filter(Boolean).join('\n')||'/* nothing moved yet */';
-    const json=JSON.stringify(Object.fromEntries(names.map(n=>[n,val(n)])));
-    const seen=JSON.stringify(Object.fromEntries(names.map(n=>{ const el=assets().find(x=>x.dataset.asset===n), r=rect(el);   // where it really sits on screen
-      return [n,{cx:+((r.left+r.width/2)/innerWidth*100).toFixed(2),cy:+((r.top+r.height/2)/innerHeight*100).toFixed(2),w:+(r.width/innerWidth*100).toFixed(2)}] })));
-    const pan=opts.panels.map(p=>`\n/* ${p.name}: ${JSON.stringify(p.get())} */`).join('');
-    return `/* da tools export · ${innerWidth}x${innerHeight} · ${new Date().toISOString().slice(0,16)} */\n${css}\n/* defaults: ${json} */\n/* seen (centre % of window, width %): ${seen} */${pan}`;
-  }
-  expB.addEventListener('click',()=>{
-    const t=exportText(); if(!out){ out=document.createElement('textarea'); out.className='dt-out'; out.readOnly=true; out.setAttribute('aria-label','da tools export'); document.body.appendChild(out) }
-    out.value=t; out.hidden=false;
-    const sel=()=>{ out.focus(); out.select(); expB.textContent='selected: copy it' };
-    try{ navigator.clipboard.writeText(t).then(()=>{ expB.textContent='copied ✓'; setTimeout(()=>expB.textContent='export',1800) },sel) }catch(e){ sel() }
-  });
-
-  /* rekey: switch to another saved layout (e.g. portrait vs landscape) without mixing the two */
-  function rekey(key,defaults){
-    Object.keys(boxes).forEach(close); hist.length=0; undoB.disabled=true;
-    K='datools:'+key; opts.key=key; opts.defaults=defaults||{};
-    st=Object.assign({},opts.defaults,store.get(':assets')||{});
-    assets().forEach(el=>{ ['translate','scale','rotate','opacity','zIndex'].forEach(k=>el.style[k]=''); paint(el) });
-    Object.keys(pboxes).forEach(i=>{ const p=opts.panels[i]; closePanel(i); openPanel(+i) });   // panels re-read the other look
-    if(opts.onChange) opts.onChange(null,null);
-  }
-
-  return { isOn:()=>on, lock, pause, undo, rekey, export:exportText, set:setv, get:val };
-}
-window.DaTools={init,version:'2.1'};
-})();
-
-</script>
 <script>
 (function(){
-  const KEY='nmm-home:';
-  const get=k=>{try{return localStorage.getItem(KEY+k)}catch(e){return null}};
-  const set=(k,v)=>{try{localStorage.setItem(KEY+k,v)}catch(e){}};
-  const root=document.documentElement.style, home=document.querySelector('.home'), obj=document.querySelector('.object');
-  let editing=false; var dt=null;
-
-  /* ---------- settings: two separate looks, one per orientation. changing one never touches the other ---------- */
-  const TYPE={ font:'Helvetica Neue (system)', customFont:'', weight:420, stretch:2.32, fontStretch:25, tracking:-.04,
-    italic:false, textCase:'none', fvs:'', color:'#92757a', hover:'#89b2d2',
-    palette:['#ffffff','#c1bcac','#8dfc91','#c9b9ff','#ffa175'], bg:3, cycle:true, fade:0, menu:true };
-  const DEFAULTS={
-    land:Object.assign({},TYPE,{size:1.25, pitch:1, drift:0, menuX:0, menuY:0, objScale:1, objOpacity:1, objX:0, objY:0, words:[[56.7,21.3],[25,13.4],[32.5,35.3]]}),
-    port:Object.assign({},TYPE,{size:1.23, pitch:.147, drift:-10.8, menuX:-5, menuY:-19, objScale:1, objOpacity:1, objX:0, objY:0, words:[[56.7,21.3],[25,13.4],[32.5,35.3]]})
-  };
-  const FONTS={
-    'Helvetica Neue (system)':{css:'"Helvetica Neue", Helvetica, Arial, sans-serif'},
-    'Archivo':'Archivo:wdth,wght@62..125,100..900',
-    'Anybody':'Anybody:wdth,wght@50..150,100..900',
-    'Roboto Flex':'Roboto+Flex:wdth,wght@25..151,100..1000',
-    'Bricolage Grotesque':'Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800',
-    'Schibsted Grotesk':'Schibsted+Grotesk:wght@400..900',
-    'Hanken Grotesk':'Hanken+Grotesk:wght@100..900',
-    'Familjen Grotesk':'Familjen+Grotesk:wght@400..700',
-    'Darker Grotesque':'Darker+Grotesque:wght@300..900',
-    'Work Sans':'Work+Sans:wght@100..900',
-    'Manrope':'Manrope:wght@200..800',
-    'Unbounded':'Unbounded:wght@200..900',
-    'Syncopate':'Syncopate:wght@400;700',
-    'Michroma':'Michroma',
-    'Krona One':'Krona+One',
-    'Lexend Zetta':'Lexend+Zetta:wght@100..900',
-    'Lexend Giga':'Lexend+Giga:wght@100..900',
-    'Space Mono':'Space+Mono:wght@400;700',
-    'IBM Plex Mono':'IBM+Plex+Mono:wght@100;200;300;400;500;600;700',
-    'JetBrains Mono':'JetBrains+Mono:wght@100..800',
-    'Instrument Serif':'Instrument+Serif',
-    'Fraunces':'Fraunces:opsz,wght@9..144,100..900',
-    'Bodoni Moda':'Bodoni+Moda:opsz,wght@6..96,400..900',
-    'Custom (Google Fonts name)':{custom:true}
-  };
-  const clone=o=>JSON.parse(JSON.stringify(o));
-  /* motion: every knob of the throw-in, bounce, note, wrench and scroll, kept per orientation */
-  const TUNE={
-    land:{ dur:[.34,.5], spin:[220,620], fast:1.1, rush:.8, rushWin:.5, gap:.55, bounces:3, bounceH:[.03,.12],
-           kick:1, missAt:[.32,.5], wrenchIn:.18, wrenchPop:1.25, lift:[.07,.13], wheel:700, swipe:420 },
-    port:{ dur:[.34,.5], spin:[220,620], fast:1.1, rush:.8, rushWin:.5, gap:.55, bounces:3, bounceH:[.03,.12],
-           kick:.7, missAt:[.32,.5], wrenchIn:.18, wrenchPop:1.25, lift:[.03,.07], wheel:700, swipe:420 }
-  };
-  const tune=()=>TUNE[matchMedia('(orientation: portrait)').matches?'port':'land'];
-  const SAVE_K=Object.keys(TYPE);                  // what the text + bg panels change; placement is da tools' job
-  const PROF=clone(DEFAULTS);
-  ['land','port'].forEach(o=>{ try{ const s=JSON.parse(get('look:'+o)||'null'); if(s) SAVE_K.forEach(k=>{ if(k in s) PROF[o][k]=s[k] }) }catch(e){} });
-  const mq=matchMedia('(orientation: portrait)'); let orient=mq.matches?'port':'land';
-  let S=PROF[orient];                              // the live look is whichever orientation is showing
-
-  // Google Fonts: try the variable range first, fall back to the plain family
-  const loaded=new Set();
-  function loadFont(spec,fallback){
-    if(!spec||loaded.has(spec)) return; loaded.add(spec);
-    const l=document.createElement('link'); l.rel='stylesheet';
-    l.href='https://fonts.googleapis.com/css2?family='+spec+'&display=swap';
-    if(fallback) l.onerror=()=>{ l.remove(); loadFont(fallback) };
-    document.head.appendChild(l);
-  }
-  function fontCss(){
-    const f=FONTS[S.font];
-    if(f&&f.css) return f.css;
-    let name;
-    if(f&&f.custom){ name=S.customFont.trim(); if(!name) return DEFAULTS_FONT;
-      const q=name.replace(/\s+/g,'+'); loadFont(q+':wght@100..900',q); }
-    else { name=S.font; loadFont(f); }
-    return `"${name}", "Helvetica Neue", Helvetica, Arial, sans-serif`;
-  }
-  const DEFAULTS_FONT=FONTS['Helvetica Neue (system)'].css;
-
-  function tokens(){
-    return {
-      '--font':fontCss(), '--weight':S.weight, '--type-scale':S.size, '--stretch':S.stretch,
-      '--fstretch':S.fontStretch+'%', '--track':S.tracking+'em', '--italic':S.italic?'italic':'normal',
-      '--case':S.textCase, '--fvs':S.fvs.trim()||'normal', '--signal':S.color, '--hover':S.hover,
-      '--pitch-scale':S.pitch, '--drift':S.drift+'px', '--menu-dx':S.menuX+'vw', '--menu-dy':S.menuY+'vh',
-      '--object-scale':S.objScale, '--object-opacity':S.objOpacity, '--fade':S.fade+'ms',
-      '--field':S.palette[S.bg%S.palette.length]
-    };
-  }
-  function apply(){
-    const t=tokens(); for(const k in t) root.setProperty(k,t[k]);
-    document.body.classList.toggle('menu-off',!S.menu);
-    obj.style.setProperty('--dx',S.objX+'px'); obj.style.setProperty('--dy',S.objY+'px');
-    document.querySelectorAll('.menu li').forEach((li,i)=>{ const w=(S.words||[])[i]; if(w){ li.style.setProperty('--wx',w[0]); li.style.setProperty('--wy',w[1]) } });
-    dirty=true; frame.force=true;
-    set('look:'+orient,JSON.stringify(Object.fromEntries(SAVE_K.map(k=>[k,S[k]]))));
-  }
-  apply();
-  mq.addEventListener('change',()=>{ orient=mq.matches?'port':'land'; S=PROF[orient]; apply();
-    if(dt) dt.rekey('bowman-home-v2-'+orient, orient==='land'?DT_LAND:DT_PORT) });   // da tools swaps to that orientation's layout too
-
-  /* ---------- background: click to cycle the palette ---------- */
-  let suppress=false;
-  home.addEventListener('click',e=>{
-    if(editing||(dt&&dt.isOn())||suppress||!S.cycle||e.target.closest('a')) { suppress=false; return }
-    S.bg=(S.bg+1)%S.palette.length; apply();
-  });
-
-  // menu links: destinations pending
-  document.querySelectorAll('.menu a').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
-
-  /* ---------- edit mode: text + images, contents only ---------- */
-  const texts=[...document.querySelectorAll('[data-edit-text]')];
-  texts.forEach(el=>{
-    const k='t:'+el.dataset.editText, v=get(k); if(v!==null) el.textContent=v;
-    el.addEventListener('input',()=>set(k,el.textContent));
-    el.addEventListener('paste',e=>{e.preventDefault();document.execCommand('insertText',false,e.clipboardData.getData('text/plain'))});
-    el.addEventListener('keydown',e=>{if(editing&&e.key==='Enter'){e.preventDefault();el.blur()}});
-  });
-  const picker=document.getElementById('picker'); let target=null;
-  const load=(slot,file)=>{ if(!file||!file.type.startsWith('image/'))return;
-    const r=new FileReader(); r.onload=()=>{slot.querySelector('img').src=r.result; set('i:'+slot.dataset.editImg,r.result)}; r.readAsDataURL(file); };
-  document.querySelectorAll('[data-edit-img]').forEach(slot=>{
-    const v=get('i:'+slot.dataset.editImg); if(v) slot.querySelector('img').src=v;
-    slot.addEventListener('click',e=>{ if(!editing) return; target=slot; picker.value=''; picker.click() });
-    slot.addEventListener('dragover',e=>{ if(!editing) return; e.preventDefault(); slot.classList.add('drag') });
-    slot.addEventListener('dragleave',()=>slot.classList.remove('drag'));
-    slot.addEventListener('drop',e=>{ if(!editing) return; e.preventDefault(); slot.classList.remove('drag'); load(slot,e.dataTransfer.files[0]) });
-  });
-  picker.addEventListener('change',()=>{ if(target) load(target,picker.files[0]) });
-  home.addEventListener('contextmenu',e=>{ if(!editing) e.preventDefault() });
-
-  let drag=null;                                   // bag dragging now lives in da tools
-
-  /* ---------- scroll: letters float up out of the bag into the list, and sink back ---------- */
-  const RIM=.655, BODY_L=.20, BODY_R=.76;          // where the bag's opening sits, as fractions of the image
-  const links=[...document.querySelectorAll('.menu a')];
-  var L=[], P=0, goal=0, last=0, dirty=true;   // var: apply() touches these before this block runs
+  const home=document.querySelector('.home'), bag=document.querySelector('.bag'), bagImg=bag.querySelector('img');
+  const miss=document.querySelector('.miss'), links=[...document.querySelectorAll('.menu a')];
+  const portrait=matchMedia('(orientation: portrait)'), land=()=>!portrait.matches, orient=()=>land()?'land':'port';
   const rnd=(a,b)=>a+Math.random()*(b-a), clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
-  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro-wait');
-  function split(){
-    L=[];
-    links.forEach(a=>{
-      if(a.querySelector('svg')){ const s=document.createElement('span'); s.className='ch'; a.dataset.html=a.innerHTML; s.innerHTML=a.innerHTML; a.innerHTML=''; a.appendChild(s);
-        L.push({el:s, sym:true, start:rnd(0,.38)}); return }
-      const txt=a.textContent; a.dataset.raw=txt; a.textContent='';
-      [...txt].forEach(c=>{ const s=document.createElement('span'); s.className='ch'; s.textContent=c; a.appendChild(s);
-        L.push({el:s, start:rnd(0,.38), lift:rnd(.1,.9), side:rnd(-1,1), spin:rnd(-14,14), phase:rnd(0,6.28)}) });
-    });
-    dirty=true;
-  }
-  function join(){ links.forEach(a=>{ if(a.dataset.html!==undefined) a.innerHTML=a.dataset.html; else if(a.dataset.raw!==undefined) a.textContent=a.dataset.raw }); L=[] }
-  function measure(){                                // each item's resting slot, plus how its own frame is turned and scaled
+  const bez=(a,b,c,d,u)=>{const v=1-u;return v*v*v*a+3*v*v*u*b+3*v*u*u*c+u*u*u*d};
+  const rotv=(x,y,a)=>[x*Math.cos(a)-y*Math.sin(a), x*Math.sin(a)+y*Math.cos(a)];
+
+  /* ---------- motion: every timing and feel knob, one set per orientation ---------- */
+  const MOTION={
+    land:{ dur:[.34,.5], spin:[220,620], fast:1.1, rush:.8, rushWin:.5, gap:.55, bounces:3, bounceH:[.03,.12],
+           kick:1, missAt:[.32,.5], lift:[.07,.13], wheel:700, swipe:420 },
+    port:{ dur:[.34,.5], spin:[220,620], fast:1.1, rush:.8, rushWin:.5, gap:.55, bounces:3, bounceH:[.03,.12],
+           kick:.7, missAt:[.32,.5], lift:[.03,.07], wheel:700, swipe:420 }
+  };
+  const M=()=>MOTION[orient()];
+  const RIM=.655, BODY_L=.20, BODY_R=.76, MOUTH_R=.6;   // bag opening and body edges, as fractions of the image
+  const FLY=.8;                                          // share of a scroll-out spent in the air; the rest is the settle
+
+  /* ---------- background: click to step through the palette (each orientation keeps its own) ---------- */
+  const PALETTE=['#ffffff','#c1bcac','#8dfc91','#c9b9ff','#ffa175'], bgi={land:3,port:3};
+  const paint=()=>document.documentElement.style.setProperty('--field',PALETTE[bgi[orient()]]);
+  home.addEventListener('click',e=>{ if(e.target.closest('a')) return; bgi[orient()]=(bgi[orient()]+1)%PALETTE.length; paint() });
+  home.addEventListener('contextmenu',e=>e.preventDefault());
+  links.forEach(a=>a.addEventListener('click',e=>e.preventDefault()));   // word destinations still to come
+
+  /* ---------- letters: split each word into spans, measure where each one rests ---------- */
+  let L=[], P=0, goal=0, last=0, dirty=true, key=0, force=true;
+  links.forEach(a=>{ const t=a.textContent; a.textContent='';
+    [...t].forEach(c=>{ const s=document.createElement('span'); s.className='ch'; s.textContent=c; a.appendChild(s); L.push({el:s, start:rnd(0,.38)}) }) });
+
+  function measure(){                              // resting slot, plus how each letter's own frame is turned, scaled and stretched
     L.forEach(l=>{ l.el.style.transform='none'; l.el.style.clipPath='' });
     L.forEach(l=>{ const r=l.el.getBoundingClientRect(); l.x=r.left+r.width/2; l.y=r.top+r.height/2; l.h=r.height; l.w=r.width;
       l.w0=l.el.offsetWidth; l.h0=l.el.offsetHeight;
       const probe=(tx,ty)=>{ l.el.style.transform=`translate(${tx}px,${ty}px)`; const q=l.el.getBoundingClientRect(); return [(q.left+q.width/2-l.x)/100,(q.top+q.height/2-l.y)/100] };
-      const [a,c]=probe(100,0), [b,d]=probe(0,100), det=a*d-b*c||1;   // how a local step shows up on screen (stretch, scale, turn)
-      l.M=[a,b,c,d]; l.Mi=[d/det,-b/det,-c/det,a/det];
-      l.el.style.transform='none' });
-    missRest(); if(INTRO.done&&miss) missAt(MISS.x,MISS.y,MISS.side*-9); if(INTRO.done) wrenchRest(); else W.x=undefined;
-    dirty=false; frame.key++;
+      const [a,c]=probe(100,0), [b,d]=probe(0,100), det=a*d-b*c||1;
+      l.Mi=[d/det,-b/det,-c/det,a/det]; l.el.style.transform='none' });
+    missRest(); if(INTRO.done) missAt(MISS.x,MISS.y,MISS.side*-9);
+    dirty=false; key++;
   }
-  const MOUTH_L=.4, MOUTH_R=.6;                    // where items leave the opening (fractions of the image width)
-  const land=()=>matchMedia('(orientation: landscape)').matches;
-  const FLY=.8;                                    // share of the move spent in the air; the rest is the settle
-  function arc(l,b,rimY,isLand){                   // a thrown object: straight line across, gravity curve up and down
+  const toLocal=(l,dx,dy)=>[l.Mi[0]*dx+l.Mi[1]*dy, l.Mi[2]*dx+l.Mi[3]*dy];
+  function place(l,x,y,rot,sc,clipRim){            // put a letter at screen x,y; optionally hide whatever is below the rim
+    const [lx,ly]=toLocal(l,x-l.x,y-l.y), rr=-rot*Math.PI/180;
+    if(clipRim!==null){
+      const big=4*Math.max(innerWidth,innerHeight), cx=l.w0/2, cy=l.h0/2;
+      const pts=[[x-big,clipRim],[x+big,clipRim],[x+big,clipRim-big],[x-big,clipRim-big]].map(([qx,qy])=>{
+        const [px,py]=rotv(...toLocal(l,qx-x,qy-y),rr); return `${(cx+px/sc).toFixed(1)}px ${(cy+py/sc).toFixed(1)}px` });
+      l.el.style.clipPath=`polygon(${pts.join(',')})`;
+    } else l.el.style.clipPath='';
+    l.el.style.transform=`translate(${lx}px,${ly}px) rotate(${rot}deg) scale(${sc})`;
+  }
+  function arc(l,b,rimY){                          // scroll-out path: straight across, gravity up and down, peak always clears the rim
     const side=clamp((l.x-(b.left+b.width/2))/(b.width/2),-1,1);
     const x0=b.left+b.width*(.5+side*(MOUTH_R-.5)*rnd(.3,1)), y0=rimY+l.h*.5;
-    const top=Math.min(y0,l.y,rimY-l.h*.55)-innerHeight*rnd(...tune().lift);
+    const top=Math.min(y0,l.y,rimY-l.h*.55)-innerHeight*rnd(...M().lift);
     const H=y0-top, D=l.y-y0, r=Math.sqrt(H*(H+D)), B=-2*(H+r), C=D-B;
-    l.A={x0, y0, B, C, apex:H/(r+H), spin:(l.x>=x0?1:-1)*rnd(22,48), pop:rnd(.75,.88)};
+    l.A={x0, y0, B, C, apex:H/(r+H), spin:(l.x>=x0?1:-1)*rnd(22,48), pop:rnd(.75,.88), key};
   }
-  const bez=(a,b,c,d,u)=>{const v=1-u;return v*v*v*a+3*v*v*u*b+3*v*u*u*c+u*u*u*d};
-  const rotv=(x,y,a)=>[x*Math.cos(a)-y*Math.sin(a), x*Math.sin(a)+y*Math.cos(a)];
-  /* page-load intro: every letter drops in from the edges along a grass-blade curve and lands inside the bag */
-  const INTRO={t0:null, done:matchMedia('(prefers-reduced-motion: reduce)').matches};
-  function introPlan(l){                           // where it enters from (edges, as fractions) and when; kept across re-measures
-    if(l.I) return l.I; const r=Math.random();
-    const from=r<.5?'top':r<.75?'left':'right';
-    const M=tune(); l.I={from, f:from==='top'?rnd(.04,.9):rnd(.08,.5), delay:0, dur:rnd(...M.dur),
-         spin:(Math.random()<.5?-1:1)*rnd(...M.spin), bow:rnd(.1,.22), side:Math.random()<.5?-1:1, hit:rnd(.6,1)};
-    return l.I;
-  }
-  const bagImg=obj.querySelector('img'), jolt={y:0,v:0,r:0,rv:0,on:false};   // the bag flinching under each hit
-  function kick(f,side){ jolt.v+=f*9; jolt.rv+=f*side*5; jolt.on=true }
+
+  /* ---------- the bag flinches when something hits it ---------- */
+  const jolt={y:0,v:0,r:0,rv:0,on:false};
+  const kick=(f,side)=>{ jolt.v+=f*9; jolt.rv+=f*side*5; jolt.on=true };
   function shake(dt){
-    if(!jolt.on||!bagImg) return;
+    if(!jolt.on) return;
     jolt.v+=(-260*jolt.y-14*jolt.v)*dt; jolt.y+=jolt.v*dt; jolt.rv+=(-260*jolt.r-14*jolt.rv)*dt; jolt.r+=jolt.rv*dt;
     if(Math.abs(jolt.y)+Math.abs(jolt.v)+Math.abs(jolt.r)+Math.abs(jolt.rv)<.002){ jolt.on=false; bagImg.style.transform=''; return }
     bagImg.style.transformOrigin='50% 100%';
     bagImg.style.transform=`translateY(${(jolt.y*innerHeight*.012).toFixed(2)}px) rotate(${(jolt.r*.9).toFixed(3)}deg) scaleY(${(1-jolt.y*.012).toFixed(4)})`;
   }
-  const miss=document.querySelector('.miss'), MISS={};
-  function missRest(){                             // lies on the floor just beside the bag: right in portrait, left in landscape
-    if(!miss) return; miss.style.transform='none';
-    const b=obj.getBoundingClientRect(), s=miss.offsetWidth, side=land()?-1:1;
+
+  /* ---------- the note that missed: clips the bag's flank, bounces twice, lies beside it ---------- */
+  const MISS={};
+  function missRest(){
+    miss.style.transform='none';
+    const b=bag.getBoundingClientRect(), s=miss.offsetWidth, side=land()?-1:1;
     const floor=Math.min(b.bottom-b.height*.02, innerHeight-(land()?72:16));
-    const edge=b.left+b.width*(side>0?BODY_R:BODY_L);
-    const cx=clamp(edge+side*s*1.7, s*.7, innerWidth-s*.7);
+    const cx=clamp(b.left+b.width*(side>0?BODY_R:BODY_L)+side*s*1.7, s*.7, innerWidth-s*.7);
     miss.style.left=(cx-s/2)+'px'; miss.style.top=(floor-s)+'px';
     const r=miss.getBoundingClientRect(); MISS.x=r.left+r.width/2; MISS.y=r.top+r.height/2; MISS.s=s;
-    MISS.side=MISS.x>b.left+b.width*.48?1:-1;                                  // moved in da tools? it clips the flank facing its resting spot
-    const e2=b.left+b.width*(MISS.side>0?BODY_R:BODY_L);
-    MISS.hx=e2+MISS.side*s*.15; MISS.hy=floor-(floor-(b.top+b.height*RIM))*.5;     // where it clips the bag's flank
+    MISS.side=MISS.x>b.left+b.width*.48?1:-1;                                  // hits the flank facing where it ends up
+    MISS.hx=b.left+b.width*(MISS.side>0?BODY_R:BODY_L)+MISS.side*s*.15; MISS.hy=floor-(floor-(b.top+b.height*RIM))*.5;
     const probe=(tx,ty)=>{ miss.style.transform=`translate(${tx}px,${ty}px)`; const q=miss.getBoundingClientRect(); return [(q.left+q.width/2-MISS.x)/100,(q.top+q.height/2-MISS.y)/100] };
     const [p,c]=probe(100,0), [q,d]=probe(0,100), det=p*d-q*c||1; MISS.Mi=[d/det,-q/det,-c/det,p/det];
     miss.style.transform='none';
   }
-  function missAt(x,y,rot){ const M=MISS.Mi, dx=x-MISS.x, dy=y-MISS.y;
-    miss.style.transform=`translate(${M[0]*dx+M[1]*dy}px,${M[2]*dx+M[3]*dy}px) rotate(${rot}deg)` }
-  function missFrame(T,start){                     // thrown last, clips the bag, bounces twice, lies still. true while moving
-    if(!miss||MISS.x===undefined) return false;
+  function missAt(x,y,rot){ const N=MISS.Mi, dx=x-MISS.x, dy=y-MISS.y;
+    miss.style.transform=`translate(${N[0]*dx+N[1]*dy}px,${N[2]*dx+N[3]*dy}px) rotate(${rot}deg)` }
+  function missFrame(t){                           // t: seconds since its throw. true while moving
     const s=MISS.s, side=MISS.side, sx=side>0?innerWidth+s:-s, sy=innerHeight*(land()?.12:.42);
-    const d1=.4, d2=.42, d3=.2, t=T-start, x2=MISS.x-side*s*.35, rest=side*-9, spin=-side*900;
-    const e=clamp(t/(d1+d2+d3)), rot=rest+spin*Math.pow(1-e,2.2);
+    const d1=.4, d2=.42, d3=.2, x2=MISS.x-side*s*.35, rest=side*-9;
+    const rot=rest-side*900*Math.pow(1-clamp(t/(d1+d2+d3)),2.2);
     if(t<0){ missAt(sx,sy,rot); return true }
-    if(t<d1){ const u=t/d1*(.8+.2*t/d1);
-      missAt(sx+(MISS.hx-sx)*u, sy+(MISS.hy-sy)*u-innerHeight*.05*4*u*(1-u), rot); return true }
+    if(t<d1){ const u=t/d1*(.8+.2*t/d1); missAt(sx+(MISS.hx-sx)*u, sy+(MISS.hy-sy)*u-innerHeight*.05*4*u*(1-u), rot); return true }
     if(!MISS.hit){ MISS.hit=true; kick(.8,-side) }
-    if(t<d1+d2){ const v=(t-d1)/d2;
-      missAt(MISS.hx+(x2-MISS.hx)*v, MISS.hy+(MISS.y-MISS.hy)*v-innerHeight*.09*4*v*(1-v), rot); return true }
-    if(t<d1+d2+d3){ const v=(t-d1-d2)/d3;
-      missAt(x2+(MISS.x-x2)*v, MISS.y-s*.22*4*v*(1-v), rot); return true }
+    if(t<d1+d2){ const v=(t-d1)/d2; missAt(MISS.hx+(x2-MISS.hx)*v, MISS.hy+(MISS.y-MISS.hy)*v-innerHeight*.09*4*v*(1-v), rot); return true }
+    if(t<d1+d2+d3){ const v=(t-d1-d2)/d3; missAt(x2+(MISS.x-x2)*v, MISS.y-s*.22*4*v*(1-v), rot); return true }
     missAt(MISS.x,MISS.y,rest); return false;
   }
-  const wrench=document.getElementById('wrench'), W={};
-  function wrenchRest(){ if(!wrench) return; wrench.style.transform=''; wrench.style.clipPath='';
-    const r=wrench.getBoundingClientRect(); W.x=r.left+r.width/2; W.y=r.top+r.height/2; W.w=r.width; W.h=r.height }
-  function wrenchAt(x,y,rot,clipRim){              // fixed button: screen offsets are its own; hide what's under the rim if asked
-    if(clipRim!==null){ const big=4*Math.max(innerWidth,innerHeight), rr=-rot*Math.PI/180;
-      const pts=[[x-big,clipRim],[x+big,clipRim],[x+big,clipRim-big],[x-big,clipRim-big]].map(([qx,qy])=>{ const [px,py]=rotv(qx-x,qy-y,rr); return `${(W.w/2+px).toFixed(1)}px ${(W.h/2+py).toFixed(1)}px` });
-      wrench.style.clipPath=`polygon(${pts.join(',')})` } else wrench.style.clipPath='';
-    wrench.style.transform=`translate(${x-W.x}px,${y-W.y}px) rotate(${rot}deg)` }
-  function wrenchFrame(T,b,rimY){                  // thrown in with the rush, rattles about inside, pops out to its corner. true while moving
-    if(!wrench) return false; if(W.x===undefined) wrenchRest();
-    const M=tune(), t0=M.wrenchIn, d1=.42, pop=M.wrenchPop, d2=.72, d3=.2, s=W.h;
-    const mx=b.left+b.width*.47, my=rimY+s*.75, sx=innerWidth+s, sy=innerHeight*.12;
-    if(T<t0){ wrenchAt(sx,sy,0,null); return true }
-    if(T<t0+d1){ const u=(T-t0)/d1*(.75+.25*(T-t0)/d1);
-      wrenchAt(sx+(mx-sx)*u, sy+(my-sy)*u-innerHeight*.06*4*u*(1-u), -560*u, u>.5?rimY:null); return true }
-    if(!W.in){ W.in=true; kick(.9,1) }
-    if(T<pop){ wrenchAt(mx,my,-560,rimY); return true }
-    const top=Math.min(my,W.y,rimY-s)-innerHeight*.12, H=my-top, D=W.y-my, r=Math.sqrt(H*(H+D)), B=-2*(H+r), C=D-B, apex=H/(r+H);
-    if(T<pop+d2){ const u=(T-pop)/d2;
-      if(!W.out){ W.out=true; kick(.5,-1) }
-      wrenchAt(mx+(W.x-mx)*u, my+B*u+C*u*u, -560+(560-720)*u, u<apex?rimY:null); return true }
-    if(T<pop+d2+d3){ const v=(T-pop-d2)/d3; wrenchAt(W.x, W.y-s*.25*4*v*(1-v), -720+(720-720)*v, null); return true }
-    wrenchAt(W.x,W.y,0,null); wrench.style.transform=''; return false;
+
+  /* ---------- load-in: letters thrown into the bag (80% inside the first second), a few bounce back out ---------- */
+  const INTRO={t0:null, done:matchMedia('(prefers-reduced-motion: reduce)').matches};
+  if(!INTRO.done) document.documentElement.classList.add('intro-wait');
+  function plan(){
+    const m=M(), order=L.map((l,i)=>i).sort(()=>Math.random()-.5), k=Math.ceil(order.length*m.rush);
+    L.forEach(l=>{ const r=Math.random(), from=r<.5?'top':r<.75?'left':'right';
+      l.I={from, f:from==='top'?rnd(.04,.9):rnd(.08,.5), dur:rnd(...m.dur), spin:(Math.random()<.5?-1:1)*rnd(...m.spin),
+           bow:rnd(.1,.22), side:Math.random()<.5?-1:1, hit:rnd(.6,1)} });
+    order.forEach((n,i)=>{ const I=L[n].I; if(i%2) I.dur/=m.fast;            // every other one thrown faster
+      I.delay=i<k ? Math.min(.04+i*(m.rushWin/Math.max(1,k-1))+rnd(-.02,.02), .98-I.dur) : 1+(i-k+1)*m.gap+rnd(-.05,.05) });
+    INTRO.missAt=rnd(...m.missAt);                                             // the note goes in with the rush
+    order.slice(0,k).sort(()=>Math.random()-.5).slice(0,m.bounces).forEach(n=>Object.assign(L[n].I,
+      {bounce:true, bwait:rnd(.02,.12), bd:rnd(.42,.62), bhf:rnd(...m.bounceH), bx:rnd(-1.2,1.2), bs:rnd(-40,40)}));
   }
-  function place(l,x,y,rot,sc,clipRim,toLocal){    // put one letter at screen x,y; optionally hide what's under the rim
-    const [lx,ly]=toLocal(x-l.x,y-l.y), rr=-rot*Math.PI/180;
-    if(clipRim!==null){
-      const big=4*Math.max(innerWidth,innerHeight), cx=l.w0/2, cy=l.h0/2;
-      const pts=[[x-big,clipRim],[x+big,clipRim],[x+big,clipRim-big],[x-big,clipRim-big]].map(([qx,qy])=>{
-        const [px,py]=rotv(...toLocal(qx-x,qy-y),rr); return `${(cx+px/sc).toFixed(1)}px ${(cy+py/sc).toFixed(1)}px` });
-      l.el.style.clipPath=`polygon(${pts.join(',')})`;
-    } else l.el.style.clipPath='';
-    l.el.style.transform=`translate(${lx}px,${ly}px) rotate(${rot}deg) scale(${sc})`;
+  function intro(T,rimY,isLand){                   // true while anything is still moving
+    let busy=false;
+    L.forEach(l=>{
+      const I=l.I, A=l.A, f=clamp((T-I.delay)/I.dur); if(f<1) busy=true;
+      const sx=I.from==='top'?innerWidth*I.f:I.from==='left'?-l.w:innerWidth+l.w, sy=I.from==='top'?-l.h:innerHeight*I.f;
+      const ex=A.x0, ey=A.y0;                                                  // lands where its scroll-out starts
+      const c1x=sx+(ex-sx)*(.33+I.bow), c1y=sy+(ey-sy)*.2, c2x=ex+(sx-ex)*.12, c2y=ey-(ey-sy)*.3;
+      const u=f*(.75+.25*f), x=bez(sx,c1x,c2x,ex,u), y=bez(sy,c1y,c2y,ey,u);
+      if(f>=1&&!I.landed){ I.landed=true; kick(I.hit*M().kick, I.side) }
+      if(f>=1&&I.bounce){                                                      // pops back up out of the mouth, drops in again
+        const tb=T-I.delay-I.dur-I.bwait;
+        if(tb<I.bd){ busy=true;
+          if(tb>0){ const v=tb/I.bd, by=ey-(ey-(rimY-l.h*.6)+innerHeight*I.bhf)*4*v*(1-v);
+            place(l, ex+I.bx*l.w*Math.sin(Math.PI*v), by, A.spin+I.bs*Math.sin(Math.PI*v), A.pop, isLand&&by+l.h>rimY?rimY:null); return } }
+        else if(!I.landed2){ I.landed2=true; kick(.45*I.hit, -I.side) }
+      }
+      place(l,x,y,I.spin*(1-u)+A.spin*u,1-(1-A.pop)*u*u,isLand&&y+l.h>rimY?rimY:null);
+    });
+    return missFrame(T-INTRO.missAt)||busy;
   }
+
+  /* ---------- every frame: load-in first, then scroll moves the letters out of the bag and back ---------- */
   function frame(now){
     requestAnimationFrame(frame);
     const dt=Math.min(.05,(now-last)/1000||0); last=now;
-    if(editing||!L.length) return;
     if(dirty) measure();
-    const b=obj.getBoundingClientRect(), rimY=b.top+b.height*RIM;
-    const isLand=land();
-    L.forEach(l=>{ if(!l.A||l.A.key!==frame.key) { arc(l,b,rimY,isLand); l.A.key=frame.key } });
+    const b=bag.getBoundingClientRect(), rimY=b.top+b.height*RIM, isLand=land();
+    L.forEach(l=>{ if(!l.A||l.A.key!==key) arc(l,b,rimY) });
     if(!INTRO.done){
-      if(INTRO.t0===null){                                    // one at a time, in a random order, ~0.3s apart
-        INTRO.t0=now;
-        const order=L.map((l,i)=>i).sort(()=>Math.random()-.5);
-        const M=tune(), k=Math.ceil(order.length*M.rush);   // most land inside the first second, the stragglers follow
-        order.forEach((n,i)=>{ const I=introPlan(L[n]); if(i%2) I.dur/=M.fast;   // every other one thrown faster
-          I.delay=i<k ? Math.min(.04+i*(M.rushWin/Math.max(1,k-1))+rnd(-.02,.02), .98-I.dur) : 1+(i-k+1)*M.gap+rnd(-.05,.05) });
-        INTRO.missAt=rnd(...M.missAt);                     // the note goes in with the rush
-        order.slice(0,k).sort(()=>Math.random()-.5).slice(0,M.bounces).forEach(n=>{ const I=L[n].I;   // a few bounce back out and drop in again
-          Object.assign(I,{bounce:true, bwait:rnd(.02,.12), bd:rnd(.42,.62), bhf:rnd(...M.bounceH), bx:rnd(-1.2,1.2), bs:rnd(-40,40)}) });
-      }
-      const T=(now-INTRO.t0)/1000; let busy=false;
-      L.forEach(l=>{
-        const I=introPlan(l), A=l.A, Mi=l.Mi, toLocal=(dx,dy)=>[Mi[0]*dx+Mi[1]*dy, Mi[2]*dx+Mi[3]*dy];
-        const f=clamp((T-I.delay)/I.dur); if(f<1) busy=true;
-        const sx=I.from==='top'?innerWidth*I.f:I.from==='left'?-l.w:innerWidth+l.w;
-        const sy=I.from==='top'?-l.h:innerHeight*I.f;
-        const ex=A.x0, ey=A.y0;                                  // lands where the scroll-out starts: inside the mouth
-        // blade shape: leaves the edge heading inward, then bends to drop straight down into the opening
-        // a hard throw: nearly straight, just enough hook at the end to drop through the opening
-        const c1x=sx+(ex-sx)*(.33+I.bow), c1y=sy+(ey-sy)*.2, c2x=ex+(sx-ex)*.12, c2y=ey-(ey-sy)*.3;
-        const u=f*(.75+.25*f);                                   // leaves the hand fast and keeps coming
-        const x=bez(sx,c1x,c2x,ex,u), y=bez(sy,c1y,c2y,ey,u);
-        const rot=I.spin*(1-u)+A.spin*u, sc=1-(1-A.pop)*u*u;
-        if(f>=1&&!I.landed){ I.landed=true; kick(I.hit*tune().kick, I.side) }   // smack: the bag takes the hit
-        if(f>=1&&I.bounce){                                      // pops back up out of the mouth, falls in again
-          const tb=T-I.delay-I.dur-I.bwait;
-          if(tb<I.bd){ busy=true;
-            if(tb>0){ const v=tb/I.bd, bh=ey-(rimY-l.h*.6)+innerHeight*I.bhf;
-              place(l, ex+I.bx*l.w*Math.sin(Math.PI*v), ey-bh*4*v*(1-v), A.spin+I.bs*Math.sin(Math.PI*v), A.pop, isLand&&ey-bh*4*v*(1-v)+l.h>rimY?rimY:null, toLocal); return } }
-          else if(!I.landed2){ I.landed2=true; kick(.45*I.hit, -I.side) }
-        }
-        place(l,x,y,rot,sc,isLand&&y+l.h>rimY?rimY:null,toLocal);
-      });
-      if(missFrame(T, INTRO.missAt)) busy=true;
-      if(wrenchFrame(T,b,rimY)) busy=true;
+      if(INTRO.t0===null){ INTRO.t0=now; plan() }
+      const busy=intro((now-INTRO.t0)/1000,rimY,isLand);
       document.documentElement.classList.remove('intro-wait');
-      if(busy||jolt.on) { shake(dt); return }
-      INTRO.done=true; frame.force=true;
+      if(busy||jolt.on){ shake(dt); return }
+      INTRO.done=true; force=true;
     }
-    const k=1-Math.exp(-dt*7); const moved=Math.abs(goal-P)>.0005;
-    P+=(goal-P)*k; if(!moved&&!frame.force) return; frame.force=false;
+    const moved=Math.abs(goal-P)>.0005;
+    P+=(goal-P)*(1-Math.exp(-dt*7)); if(!moved&&!force) return; force=false;
     L.forEach(l=>{
       const t=clamp((P-l.start)/.62);
       if(t>=1){ l.el.style.transform='none'; l.el.style.clipPath=''; return }
-      const A=l.A, f=clamp(t/FLY), u=1-Math.pow(1-f,1.35);   // fast launch, gravity does the slowing
-      let x=A.x0+(l.x-A.x0)*u, y=A.y0+A.B*u+A.C*u*u;
-      if(t>FLY){ const s=(t-FLY)/(1-FLY); y+=l.h*.07*Math.sin(s*Math.PI)*(1-s) }   // lands, dips a hair, settles
-      const rot=A.spin*Math.pow(1-u,1.6);                        // tumbles out, straightens as it lands
-      const sc=A.pop+(1-A.pop)*clamp(u/.35)**.6;                 // grows as it clears the mouth
-      const Mi=l.Mi, toLocal=(dx,dy)=>[Mi[0]*dx+Mi[1]*dy, Mi[2]*dx+Mi[3]*dy];
-      place(l,x,y,rot,sc,isLand&&u<A.apex?rimY:null,toLocal);   // still coming out: hide whatever is below the rim
+      const A=l.A, u=1-Math.pow(1-clamp(t/FLY),1.35);                         // fast launch, gravity does the slowing
+      let y=A.y0+A.B*u+A.C*u*u; if(t>FLY){ const s=(t-FLY)/(1-FLY); y+=l.h*.07*Math.sin(s*Math.PI)*(1-s) }   // lands, dips, settles
+      place(l, A.x0+(l.x-A.x0)*u, y, A.spin*Math.pow(1-u,1.6), A.pop+(1-A.pop)*clamp(u/.35)**.6, isLand&&u<A.apex?rimY:null);
     });
   }
-  frame.key=0;
-  const nudge=d=>{ if(dt&&dt.isOn()) return; goal=clamp(goal+d); frame.force=true };
-  home.addEventListener('wheel',e=>{ e.preventDefault(); nudge((e.deltaMode===1?e.deltaY*16:e.deltaY)/tune().wheel) },{passive:false});
+
+  /* ---------- input: wheel, swipe and keys drive the scroll-out ---------- */
+  const nudge=d=>{ goal=clamp(goal+d); force=true };
+  home.addEventListener('wheel',e=>{ e.preventDefault(); nudge((e.deltaMode===1?e.deltaY*16:e.deltaY)/M().wheel) },{passive:false});
   let ty=null;
   home.addEventListener('touchstart',e=>{ ty=e.touches[0].clientY },{passive:true});
-  home.addEventListener('touchmove',e=>{ if(drag||ty===null) return; const y=e.touches[0].clientY; nudge((ty-y)/tune().swipe); ty=y },{passive:true});
+  home.addEventListener('touchmove',e=>{ const y=e.touches[0].clientY; nudge((ty-y)/M().swipe); ty=y },{passive:true});
   document.addEventListener('keydown',e=>{
-    if(editing||e.target.closest('input,textarea,select,[contenteditable]')) return;
     const m={ArrowDown:.2,PageDown:.5,' ':.5,ArrowUp:-.2,PageUp:-.5}[e.key];
     if(m!==undefined){ e.preventDefault(); nudge(m) } else if(e.key==='End') nudge(1); else if(e.key==='Home') nudge(-1);
   });
-  addEventListener('resize',()=>{ dirty=true; frame.force=true });
-  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{ dirty=true; frame.force=true });
-  split(); frame.force=true; requestAnimationFrame(frame);
-
-  /* ---------- edit mode: content only (text + images). lives in the wrench bar ---------- */
-  function setEditing(on){
-    if(on===editing) return; editing=on;
-    document.body.classList.toggle('editing',editing);
-    if(dt) dt.pause(editing);                                     // da tools lets go of the assets while editing
-    if(editing) join(); else { split(); frame.force=true }
-    texts.forEach(el=>{ if(editing){ el.contentEditable='plaintext-only'; if(el.contentEditable!=='plaintext-only') el.contentEditable='true'; } else el.removeAttribute('contenteditable'); });
-  }
-
-  /* ---------- page panels handed to da tools: type + colour, background ---------- */
-  const pick=ks=>()=>Object.fromEntries(ks.map(k=>[k,clone(S[k])]));
-  const TEXT_K=['font','customFont','weight','size','stretch','fontStretch','tracking','textCase','italic','fvs','color','hover','menu'];
-  const BG_K=['palette','bg','cycle','fade'];
-  const setS=patch=>{ if(patch.customFont&&String(patch.customFont).trim()) S.font='Custom (Google Fonts name)'; Object.assign(S,patch); apply() };
-  const PANELS=[
-    {name:'text', label:'text', get title(){ return 'text · '+(orient==='land'?'landscape':'portrait') }, get:pick(TEXT_K), set:setS, reset:()=>setS(Object.fromEntries(TEXT_K.map(k=>[k,clone(DEFAULTS[orient][k])]))), controls:[
-      {k:'font',label:'family',type:'select',options:Object.keys(FONTS)},
-      {k:'customFont',label:'custom',type:'text',placeholder:'Google Fonts name'},
-      {k:'weight',label:'weight',type:'range',min:100,max:1000,step:10},
-      {k:'size',label:'size ×',type:'range',min:.2,max:4,step:.01},
-      {k:'stretch',label:'widen ×',type:'range',min:.3,max:5,step:.01},
-      {k:'fontStretch',label:'width %',type:'range',min:25,max:200,step:1},
-      {k:'tracking',label:'tracking',type:'range',min:-.3,max:1.5,step:.005},
-      {k:'textCase',label:'case',type:'select',options:['none','uppercase','lowercase','capitalize']},
-      {k:'italic',label:'italic',type:'check'},
-      {k:'fvs',label:'variation',type:'text',placeholder:'"wght" 300, "wdth" 150'},
-      {k:'color',label:'colour',type:'color'},
-      {k:'hover',label:'hover',type:'color'},
-      {k:'menu',label:'menu on',type:'check'}]},
-    {name:'background', get title(){ return 'bg · '+(orient==='land'?'landscape':'portrait') }, label:'bg', get:pick(BG_K), set:setS, reset:()=>setS(Object.fromEntries(BG_K.map(k=>[k,clone(DEFAULTS[orient][k])]))), controls:[
-      {k:'palette',label:'palette',type:'colors'},
-      {k:'bg',label:'showing #',type:'range',min:0,max:4,step:1},
-      {k:'cycle',label:'click cycles',type:'check'},
-      {k:'fade',label:'fade ms',type:'range',min:0,max:1500,step:10}]}
-  ];
-
-  /* ---------- da tools: move / resize / adjust any asset, password gated ---------- */
-  // Jack's da tools exports (landscape 1544x808, portrait 411x744), refitted from the symbols to the words
-  const DT_PORT={"bag":{"x":-11.33,"y":38.64,"s":1,"r":0,"o":1,"z":""},"jpg":{"x":4.39,"y":2.2,"s":0.965,"r":0,"o":1,"z":""},"mp3":{"x":27.81,"y":6.9,"s":0.659,"r":0,"o":1,"z":""},"mp4":{"x":-11.57,"y":-17.3,"s":0.722,"r":0,"o":1,"z":""}};
-const DT_LAND={"bag":{"x":-19.87,"y":5.55,"s":1,"r":0,"o":1,"z":""},"jpg":{"x":14.72,"y":58.56,"s":1.094,"r":2.5,"o":1,"z":""},"mp3":{"x":58.38,"y":54.71,"s":1.14,"r":5.5,"o":0.93,"z":""},"mp4":{"x":56.19,"y":45.5,"s":0.84,"r":-9.5,"o":1,"z":""},"miss":{"x":71.31,"y":-49.03,"s":3.56,"r":0,"o":1,"z":""}};
-  dt=DaTools.init({ password:'password', key:'bowman-home-v2-'+(land()?'land':'port'), defaults:land()?DT_LAND:DT_PORT,
-    button:document.getElementById('wrench'), dock:'left', panels:PANELS,
-    actions:[{label:'edit', toggle:true, onClick:on=>setEditing(on)}],
-    onChange:()=>{ dirty=true; frame.force=true },                       // re-plot the arcs when a word or the bag moves
-    onToggle:on=>{ if(!on) setEditing(false); if(on){ INTRO.done=true; wrenchRest(); if(miss&&MISS.x!==undefined) missAt(MISS.x,MISS.y,MISS.side*-9); goal=1; P=.999; frame.force=true } } });      // letters out of the bag while editing
+  const relayout=()=>{ dirty=true; force=true };
+  addEventListener('resize',relayout); portrait.addEventListener('change',()=>{ paint(); relayout() });
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(relayout);
+  paint(); requestAnimationFrame(frame);
 })();
 </script>
