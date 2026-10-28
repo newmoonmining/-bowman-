@@ -1,191 +1,236 @@
-<title>New Moon Mining</title>
+<title>New Moon Mining Home</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
-/* Layout: two full-bleed screens on one stone field. Welcome = centred art; Menu = stacked file-extension links on hazy patches */
+/* Layout: cut-out object hung off the top-left edge; file-extension menu as a quiet column right of centre.
+   Every tunable value is a token below; the dev panel writes these same tokens. */
 :root{
-  --field:#c1bcac; --patch:#bfb9ba; --patch-2:#bdb7b6; --signal:#4ccf6b; --ink:#1a1a18;
+  --field:#ffffff; --signal:#7d9275; --hover:#1a1a18; --ink:#1a1a18;
   --vh:100vh;
-  --m: max(8px, 2.5vmin);                                   /* one margin, all four sides */
-  --pw: calc(100vw - 2*var(--m)); --ph: calc(var(--vh) - 2*var(--m));
-  --menu-size: min(96px, calc(var(--ph) * .085), calc(var(--pw) * .22));   /* stack always fits inside the painting */
-  --menu-gap: calc(var(--menu-size) * .64);
-  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color-scheme: light;
+  --menu-size:calc(var(--vh)*.08);
+  --menu-pitch:calc(var(--vh)*.19);
+  --font:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  --weight:300; --type-scale:1; --stretch:2.4; --fstretch:100%; --track:.01em;
+  --italic:normal; --case:none; --fvs:normal;
+  --pitch-scale:1; --drift:-1.5px; --menu-dx:0vw; --menu-dy:0vh;
+  --object-scale:1; --object-opacity:.8; --dx:0px; --dy:0px;
+  --fade:0ms;
+  --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono:ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --dev-bg:rgba(250,250,248,.94); --dev-fg:#1a1a18; --dev-line:rgba(26,26,24,.14); --dev-dim:rgba(26,26,24,.55);
+  color-scheme:light;
 }
 @supports (height:100dvh){:root{--vh:100dvh}}
 html,body{height:100%}
-/* no tap flash, long-press callout, or selection highlight on touch */
 *{-webkit-tap-highlight-color:transparent}
-#welcome,#menu,.tool{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
-body.editing [data-edit-text]{-webkit-user-select:text;user-select:text}
-body{background:var(--field);color:var(--ink);overflow:hidden;
-  padding-left:max(16px,env(safe-area-inset-left,0px));
-  padding-right:max(16px,env(safe-area-inset-right,0px));
-  font-family:var(--sans)}
-.screen{position:fixed;inset:0;display:grid;place-items:center;background:var(--field);
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
-  transition:opacity .6s ease, visibility 0s linear .6s}
-.screen.off{opacity:0;visibility:hidden;pointer-events:none}
-.screen:not(.off){transition:opacity .6s ease, visibility 0s}
-#welcome{cursor:pointer;perspective:1400px}
-.stage{transform-origin:var(--nail,8% 4%);will-change:transform}
+body{background:var(--field);color:var(--ink);overflow:hidden;font-family:var(--sans);transition:background-color var(--fade);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.home{position:fixed;inset:0;background:var(--field);transition:background-color var(--fade);
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 
-/* welcome */
-.stage{position:absolute;top:calc(var(--m) + env(safe-area-inset-top,0px));bottom:calc(var(--m) + env(safe-area-inset-bottom,0px));
-  left:calc(var(--m) + env(safe-area-inset-left,0px));right:calc(var(--m) + env(safe-area-inset-right,0px))}
-.img-slot{position:absolute;overflow:hidden;background:var(--field)}
-.img-slot img{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none;pointer-events:none}
-.main{inset:0}
-.thumb{--s:min(var(--pw),var(--ph));top:calc(var(--s)*.015);right:calc(var(--s)*.017);width:calc(var(--s)*.087);aspect-ratio:1/1;z-index:2}
-
-/* .jpg page: same size and proportions as the hung painting; field flashes through the palette */
-.sq-stage{--ar:.75;--w:min(var(--pw), calc(var(--ph)*var(--ar)));position:relative;width:var(--w);aspect-ratio:var(--ar)}   /* box takes the image's own shape: no crop */
-.sq-stage .thumb{--s:calc(var(--w)*min(1, 1/var(--ar)))}
-#p-jpg{animation:flash .25s step-end infinite}
-@keyframes flash{0%{background:#c1bcac}20%{background:#8dfc91}40%{background:#c9b9ff}60%{background:#ffa175}80%{background:#ffffff}}
-@media (prefers-reduced-motion:reduce){#p-jpg{animation:none}}
+/* object: full-res transparent cut-out; scales about its own centre */
+.img-slot{position:absolute;overflow:hidden}
+.img-slot img{width:100%;height:100%;object-fit:contain;object-position:left top;display:block;pointer-events:none;-webkit-user-drag:none}
+.object{--oh:calc(var(--vh)*1.15); --ow:calc(var(--oh)*1581/2463);
+  left:calc(-10vw + var(--vh)*.1283 + var(--dx) - (var(--object-scale) - 1)*var(--ow)/2);
+  top:calc(var(--vh)*-.2181 + var(--dy) - (var(--object-scale) - 1)*var(--oh)/2);
+  height:calc(var(--oh)*var(--object-scale));aspect-ratio:1581/2463}
+.object img{opacity:var(--object-opacity)}
+body:not(.editing) .object{cursor:grab;touch-action:none}
+body:not(.editing) .object.dragging{cursor:grabbing}
 
 /* menu */
-.menu{display:flex;flex-direction:column;align-items:center;gap:var(--menu-gap);margin:0;padding:0;list-style:none}
-.menu li{position:relative}
-.menu a{position:relative;display:block;color:var(--signal);text-decoration:none;
-  font-size:var(--menu-size);font-weight:300;line-height:1;letter-spacing:.005em;
-  padding:.28em .2em .32em;z-index:1}
-/* hazy blocky patches behind each label */
-.menu li::before,.menu li::after{content:"";position:absolute;z-index:0;filter:blur(3px);pointer-events:none;transition:opacity .3s}
-.menu li::before{background:var(--patch);inset:var(--a,0 6% 0 6%)}
-.menu li::after{background:var(--patch-2);opacity:.7;inset:var(--b,-14% 22% 70% 30%)}
-.menu li:nth-child(1){--a:-6% 4% 6% 4%; --b:-22% 18% 72% 26%}
-.menu li:nth-child(2){--a:0 -6% 0 4%; --b:20% 86% 22% -22%}
-.menu li:nth-child(3){--a:0 -6% 0 4%; --b:22% 88% 18% -20%}
-.menu li:nth-child(4){--a:0 2% -6% 2%; --b:4% 70% 6% 10%}
-.menu a:hover,.menu a:focus-visible{outline:none;color:var(--ink)}
-.menu li:hover::before{background:var(--signal);opacity:.25}
+.menu{position:absolute;left:calc(77% + var(--menu-dx));top:calc(50% + var(--menu-dy));transform:translate(-50%,-50%) translateY(calc(var(--vh)*.004));
+  margin:0;padding:0;list-style:none;display:flex;flex-direction:column;align-items:center}
+.menu li{height:calc(var(--menu-pitch)*var(--pitch-scale));display:flex;align-items:center}
+.menu li:nth-child(2){transform:translateX(var(--drift))}
+.menu li:nth-child(3){transform:translateX(calc(var(--drift)*2))}
+.menu li:nth-child(4){transform:translateX(calc(var(--drift)*3))}
+.menu a{display:inline-block;color:var(--signal);text-decoration:none;line-height:1;padding:.1em .15em;
+  font-family:var(--font);font-size:calc(var(--menu-size)*var(--type-scale));font-weight:var(--weight);font-style:var(--italic);
+  font-stretch:var(--fstretch);font-variation-settings:var(--fvs);letter-spacing:var(--track);text-transform:var(--case);
+  transform:scaleX(var(--stretch));transform-origin:center}
+.menu a:hover,.menu a:focus-visible{outline:none;color:var(--hover)}
 
-/* reveal: menu sits under the wall; the falling painting uncovers it */
-#welcome{z-index:2}
-#welcome.falling{background:transparent}
-@media (prefers-reduced-motion:reduce){.screen{transition:none!important}}
+/* portrait: object on top, menu underneath */
+@media (orientation:portrait){
+  .object{--oh:calc(var(--vh)*.6);
+    left:calc(50% - var(--ow)/2 + var(--dx) - (var(--object-scale) - 1)*var(--ow)/2);
+    top:calc(var(--vh)*.02 + env(safe-area-inset-top,0px) + var(--dy) - (var(--object-scale) - 1)*var(--oh)/2)}
+  :root{--menu-size:min(9vw, calc(var(--vh)*.05));--menu-pitch:calc(var(--vh)*.09)}
+  .menu{left:calc(50% + var(--menu-dx));top:auto;bottom:calc(var(--vh)*.04 + env(safe-area-inset-bottom,0px));transform:translate(-50%,var(--menu-dy))}
+}
 
-/* edit mode */
-.tool{position:fixed;z-index:20;bottom:calc(14px + env(safe-area-inset-bottom,0px));
-  width:26px;height:26px;border-radius:50%;border:1px solid rgba(26,26,24,.25);background:transparent;
-  color:rgba(26,26,24,.45);font:11px/1 var(--sans);cursor:pointer;opacity:.35;transition:opacity .2s}
+/* menu on/off switch */
+nav{transition:opacity .35s ease}
+body.menu-off nav{opacity:0;pointer-events:none}
+.switch{position:fixed;z-index:20;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:calc(14px + env(safe-area-inset-left,0px));
+  width:34px;height:18px;padding:0;border-radius:9px;border:1px solid rgba(26,26,24,.3);background:transparent;cursor:pointer;
+  opacity:.55;transition:opacity .2s,background .2s,border-color .2s;-webkit-user-select:none;user-select:none}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:rgba(26,26,24,.45);transition:transform .2s ease,background .2s}
+.switch[aria-pressed="true"]{background:var(--signal);border-color:var(--signal)}
+.switch[aria-pressed="true"]::after{transform:translateX(16px);background:var(--field)}
+.switch:hover,.switch:focus-visible{opacity:1}
+.switch:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){nav,.switch,.switch::after{transition:none}}
+
+/* corner tools */
+.tool{position:fixed;z-index:20;bottom:calc(14px + env(safe-area-inset-bottom,0px));right:calc(14px + env(safe-area-inset-right,0px));
+  width:26px;height:26px;padding:0;border-radius:50%;border:1px solid rgba(26,26,24,.25);background:transparent;
+  color:rgba(26,26,24,.55);font:11px/1 var(--sans);cursor:pointer;opacity:.35;transition:opacity .2s;-webkit-user-select:none;user-select:none}
+.tool.dev-toggle{right:calc(48px + env(safe-area-inset-right,0px));font:600 10px/1 var(--mono);letter-spacing:-.02em}
 .tool:hover,.tool:focus-visible{opacity:1}
-.edit-toggle{right:calc(14px + env(safe-area-inset-right,0px))}
-.reload{left:calc(14px + env(safe-area-inset-left,0px));font-size:13px}
-body.editing .edit-toggle{opacity:1;background:var(--ink);color:var(--field);border-color:var(--ink)}
-body.editing .img-slot{cursor:copy;outline:1px dashed rgba(26,26,24,.4);outline-offset:2px}
-body.editing #welcome{cursor:default}
-body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);outline-offset:2px}
+.tool[aria-pressed="true"]{opacity:1;background:var(--ink);color:#fff;border-color:var(--ink)}
+body.editing .img-slot{cursor:copy;outline:1px dashed rgba(26,26,24,.4);outline-offset:-2px}
+body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);outline-offset:2px;-webkit-user-select:text;user-select:text}
 .img-slot.drag{outline:1px solid var(--ink)!important}
+
+/* dev panel */
+.dev{position:fixed;z-index:30;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));
+  width:min(300px, calc(100vw - 24px));max-height:calc(var(--vh) - 70px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow:auto;
+  background:var(--dev-bg);color:var(--dev-fg);border:1px solid var(--dev-line);border-radius:6px;
+  font:11px/1.3 var(--mono);box-shadow:0 8px 28px rgba(26,26,24,.16);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.dev header{position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;align-items:center;padding:8px 10px;
+  background:var(--dev-bg);border-bottom:1px solid var(--dev-line);text-transform:uppercase;letter-spacing:.08em;font-size:10px}
+.dev header button{all:unset;cursor:pointer;padding:2px 4px;font-size:13px;color:var(--dev-dim)}
+.dev details{border-bottom:1px solid var(--dev-line)}
+.dev summary{cursor:pointer;padding:7px 10px;text-transform:uppercase;letter-spacing:.08em;font-size:10px;color:var(--dev-dim);list-style:none}
+.dev summary::-webkit-details-marker{display:none}
+.dev summary::before{content:"▸ ";}
+.dev details[open] summary::before{content:"▾ ";}
+.dev .rows{display:grid;gap:6px;padding:2px 10px 10px}
+.dev .row{display:grid;grid-template-columns:92px minmax(0,1fr) 52px;align-items:center;gap:6px}
+.dev .row.wide{grid-template-columns:92px minmax(0,1fr)}
+.dev label{color:var(--dev-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dev input[type=range]{width:100%;margin:0;accent-color:var(--dev-fg)}
+.dev input[type=number],.dev input[type=text],.dev select{width:100%;min-width:0;box-sizing:border-box;font:inherit;color:inherit;
+  background:#fff;border:1px solid var(--dev-line);border-radius:3px;padding:3px 4px}
+.dev input[type=number]{font-variant-numeric:tabular-nums;text-align:right}
+.dev input[type=color]{width:100%;height:22px;padding:0;border:1px solid var(--dev-line);border-radius:3px;background:#fff}
+.dev input[type=checkbox]{justify-self:start;margin:0;accent-color:var(--dev-fg)}
+.dev .swatches{display:flex;gap:4px}
+.dev .swatches input{flex:1}
+.dev .btns{display:flex;flex-wrap:wrap;gap:6px}
+.dev .btns button{font:inherit;color:inherit;background:#fff;border:1px solid var(--dev-line);border-radius:3px;padding:4px 8px;cursor:pointer}
+.dev .btns button:hover{border-color:var(--dev-fg)}
+.dev :focus-visible{outline:1px solid var(--dev-fg);outline-offset:1px}
+.dev textarea{width:100%;box-sizing:border-box;height:120px;font:10px/1.35 var(--mono);border:1px solid var(--dev-line);border-radius:3px;padding:6px;resize:vertical}
+.dev .note{color:var(--dev-dim);font-size:10px}
 </style>
 
-<section class="screen" id="welcome" aria-label="Welcome">
-  <div class="stage">
-    <div class="img-slot main" data-edit-img="art" aria-label="Main image">
-      <img src="assets/d7e015346c.jpg" alt="Artwork">
-    </div>
-    <div class="img-slot thumb" data-edit-img="thumb" aria-label="Thumbnail">
-      <img src="assets/dc98f0a759.jpg" alt="Thumbnail">
-    </div>
+<main class="home">
+  <div class="img-slot object" data-edit-img="home-object" aria-label="Object image">
+    <img src="assets/692fd1f9e9.webp" alt="Translucent drawstring bag on a looped cord">
   </div>
-</section>
+  <nav aria-label="Main menu">
+    <ul class="menu">
+      <li><a href="#jpg" data-edit-text="h1">.jpg</a></li>
+      <li><a href="#mp3" data-edit-text="h2">.mp3</a></li>
+      <li><a href="#mp4" data-edit-text="h3">.mp4</a></li>
+      <li><a href="#irl" data-edit-text="h4">.irl</a></li>
+    </ul>
+  </nav>
+</main>
 
-<nav class="screen off" id="menu" aria-label="Main menu">
-  <ul class="menu">
-    <li><a href="#jpg" data-edit-text="m1">.jpg</a></li>
-    <li><a href="#mp3" data-edit-text="m2">.mp3</a></li>
-    <li><a href="#mp4" data-edit-text="m3">.mp4</a></li>
-    <li><a href="#irl" data-edit-text="m4">.irl</a></li>
-  </ul>
-</nav>
-
-<section class="screen off" id="p-jpg" aria-label=".jpg">
-  <div class="sq-stage">
-    <div class="img-slot main" data-edit-img="jpg-main" aria-label="Main image">
-      <img src="assets/a55f830be2.gif" alt="Bag, edit sequence">
-    </div>
-    <div class="img-slot thumb" data-edit-img="jpg-thumb" aria-label="Thumbnail">
-      <img src="assets/dc98f0a759.jpg" alt="Thumbnail">
-    </div>
-  </div>
-</section>
-
-<button class="tool reload" id="reload" title="Rehang image" aria-label="Rehang image">↻</button>
-<button class="tool edit-toggle" id="editToggle" aria-pressed="false" title="Edit content">✎</button>
+<button class="switch" id="menuSwitch" aria-pressed="true" aria-label="Menu" title="Menu on/off"></button>
+<button class="tool dev-toggle" id="devToggle" aria-pressed="false" title="Developer panel (`)">Aa</button>
+<button class="tool" id="editToggle" aria-pressed="false" title="Edit content">✎</button>
 <input type="file" id="picker" accept="image/*" hidden>
+<aside class="dev" id="dev" hidden aria-label="Developer panel"></aside>
 
 <script>
 (function(){
-  const KEY='nmm:';
+  const KEY='nmm-home:';
   const get=k=>{try{return localStorage.getItem(KEY+k)}catch(e){return null}};
   const set=(k,v)=>{try{localStorage.setItem(KEY+k,v)}catch(e){}};
+  const root=document.documentElement.style, home=document.querySelector('.home'), obj=document.querySelector('.object');
   let editing=false;
 
-  // screens
-  const welcome=document.getElementById('welcome'), menu=document.getElementById('menu'), stage=welcome.querySelector('.stage');
-  let fall=null;
-  const screens=()=>[...document.querySelectorAll('.screen')];
-  const snapOff=el=>{el.style.transition='none';el.classList.add('off');void el.offsetWidth;el.style.transition=''};
-  const current=()=>screens().find(s=>!s.classList.contains('off'));
-  const show=id=>{
-    if(id==='welcome'){
-      if(fall){fall.cancel();fall=null}
-      welcome.classList.remove('falling','off');
-      screens().forEach(s=>{ if(s!==welcome) snapOff(s) });
-      return;
-    }
-    screens().forEach(s=>s.classList.toggle('off',s.id!==id));
+  /* ---------- settings: defaults are the published look ---------- */
+  const DEFAULTS={
+    font:'Helvetica Neue (system)', customFont:'', weight:300, size:1, stretch:2.4, fontStretch:100, tracking:.01,
+    italic:false, textCase:'none', fvs:'', color:'#7d9275', hover:'#1a1a18',
+    pitch:1, drift:-1.5, menuX:0, menuY:0,
+    objScale:1, objOpacity:.8, objX:0, objY:0,
+    palette:['#ffffff','#c1bcac','#8dfc91','#c9b9ff','#ffa175'], bg:0, cycle:true, fade:0
   };
+  const FONTS={
+    'Helvetica Neue (system)':{css:'"Helvetica Neue", Helvetica, Arial, sans-serif'},
+    'Archivo':'Archivo:wdth,wght@62..125,100..900',
+    'Anybody':'Anybody:wdth,wght@50..150,100..900',
+    'Roboto Flex':'Roboto+Flex:wdth,wght@25..151,100..1000',
+    'Bricolage Grotesque':'Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800',
+    'Schibsted Grotesk':'Schibsted+Grotesk:wght@400..900',
+    'Hanken Grotesk':'Hanken+Grotesk:wght@100..900',
+    'Familjen Grotesk':'Familjen+Grotesk:wght@400..700',
+    'Darker Grotesque':'Darker+Grotesque:wght@300..900',
+    'Work Sans':'Work+Sans:wght@100..900',
+    'Manrope':'Manrope:wght@200..800',
+    'Unbounded':'Unbounded:wght@200..900',
+    'Syncopate':'Syncopate:wght@400;700',
+    'Michroma':'Michroma',
+    'Krona One':'Krona+One',
+    'Lexend Zetta':'Lexend+Zetta:wght@100..900',
+    'Lexend Giga':'Lexend+Giga:wght@100..900',
+    'Space Mono':'Space+Mono:wght@400;700',
+    'IBM Plex Mono':'IBM+Plex+Mono:wght@100;200;300;400;500;600;700',
+    'JetBrains Mono':'JetBrains+Mono:wght@100..800',
+    'Instrument Serif':'Instrument+Serif',
+    'Fraunces':'Fraunces:opsz,wght@9..144,100..900',
+    'Bodoni Moda':'Bodoni+Moda:opsz,wght@6..96,400..900',
+    'Custom (Google Fonts name)':{custom:true}
+  };
+  const clone=o=>JSON.parse(JSON.stringify(o));
+  let S=clone(DEFAULTS);
+  try{ const saved=JSON.parse(get('dev')||'null'); if(saved) S=Object.assign(S,saved) }catch(e){}
 
-  // painting comes off the wall; where the click lands decides how it was knocked
-  function drop(e){
-    if(fall||welcome.classList.contains('off')) return;
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches){show('menu');return}
-    menu.style.transition='none'; menu.classList.remove('off'); void menu.offsetWidth; menu.style.transition='';
-    welcome.classList.add('falling');
-    const r=stage.getBoundingClientRect(), rnd=(a,b)=>a+Math.random()*(b-a), cl=x=>Math.max(0,Math.min(1,x));
-    const cx=e&&e.clientX!=null?e.clientX:r.left+r.width*rnd(.3,.7), cy=e&&e.clientY!=null?e.clientY:r.top+r.height*rnd(.3,.7);
-    const u=cl((cx-r.left)/r.width), v=cl((cy-r.top)/r.height);
-    const hx=(u-.5)*2, vy=(v-.5)*2, ax=Math.abs(hx), s=hx<0?-1:1;
-    // the hit side breaks free; the far nail holds; a centre hit pulls both
-    stage.style.setProperty('--nail', `${50-42*hx}% 4%`);
-    const A=s*(.6+2.4*ax), end=s*(2+13*ax)+rnd(-1.5,1.5);               // rattle angle: small, only ever toward the free side
-    const drift=-hx*rnd(3,8), tilt=4+8*v+rnd(-1.5,1.5);              // low hits kick the bottom out further
-    const kx=-hx*3, j=()=>rnd(-.8,.8);                               // a short shove away from the hand, with jitter
-    const dy=innerHeight-r.top+r.height*.4;
-    const sh=a=>`drop-shadow(${3*a}px ${9*a}px ${16*a}px rgba(26,26,24,${.22*a}))`;
-    // violent rattle on the nails: fast, decaying, irregular; it only ever settles downward, never lifts
-    const snap='cubic-bezier(.15,.9,.25,1)';
-    const rattle=[[.025,1,1.0,1],[.05,-.5,.35,1.4],[.08,.7,.85,2],[.105,-.3,.45,2.6],[.13,.4,.7,3.4]];
-    const frames=[{transform:'none',filter:sh(0),easing:snap}];
-    rattle.forEach(([o,x,ra,y],i)=>frames.push({transform:`translate(${kx*x+j()}px,${y+rnd(0,.6)}px) rotate(${A*ra*rnd(.8,1.2)}deg)`,filter:sh(.12*(i+1)),offset:o+.03*v*(i+1)/5,easing:i<4?snap:'cubic-bezier(.7,0,.84,0)'}));
-    frames.push({transform:`translate(${drift}vw,${dy}px) rotate(${end}deg) rotateX(${tilt}deg)`,filter:sh(1),offset:1});
-    fall=stage.animate(frames,{duration:380+120*v,fill:'forwards'});
-    fall.onfinish=()=>{
-      welcome.style.transition='none'; welcome.classList.add('off'); void welcome.offsetWidth; welcome.style.transition='';
+  // Google Fonts: try the variable range first, fall back to the plain family
+  const loaded=new Set();
+  function loadFont(spec,fallback){
+    if(!spec||loaded.has(spec)) return; loaded.add(spec);
+    const l=document.createElement('link'); l.rel='stylesheet';
+    l.href='https://fonts.googleapis.com/css2?family='+spec+'&display=swap';
+    if(fallback) l.onerror=()=>{ l.remove(); loadFont(fallback) };
+    document.head.appendChild(l);
+  }
+  function fontCss(){
+    const f=FONTS[S.font];
+    if(f&&f.css) return f.css;
+    let name;
+    if(f&&f.custom){ name=S.customFont.trim(); if(!name) return DEFAULTS_FONT;
+      const q=name.replace(/\s+/g,'+'); loadFont(q+':wght@100..900',q); }
+    else { name=S.font; loadFont(f); }
+    return `"${name}", "Helvetica Neue", Helvetica, Arial, sans-serif`;
+  }
+  const DEFAULTS_FONT=FONTS['Helvetica Neue (system)'].css;
+
+  function tokens(){
+    return {
+      '--font':fontCss(), '--weight':S.weight, '--type-scale':S.size, '--stretch':S.stretch,
+      '--fstretch':S.fontStretch+'%', '--track':S.tracking+'em', '--italic':S.italic?'italic':'normal',
+      '--case':S.textCase, '--fvs':S.fvs.trim()||'normal', '--signal':S.color, '--hover':S.hover,
+      '--pitch-scale':S.pitch, '--drift':S.drift+'px', '--menu-dx':S.menuX+'vw', '--menu-dy':S.menuY+'vh',
+      '--object-scale':S.objScale, '--object-opacity':S.objOpacity, '--fade':S.fade+'ms',
+      '--field':S.palette[S.bg%S.palette.length]
     };
   }
+  function apply(){
+    const t=tokens(); for(const k in t) root.setProperty(k,t[k]);
+    obj.style.setProperty('--dx',S.objX+'px'); obj.style.setProperty('--dy',S.objY+'px');
+    set('dev',JSON.stringify(S));
+  }
+  apply();
 
-  welcome.addEventListener('click',e=>{ if(!editing) drop(e) });
-  welcome.addEventListener('contextmenu',e=>{ if(!editing) e.preventDefault() });
-  document.getElementById('reload').addEventListener('click',e=>{ e.stopPropagation(); show('welcome') });
-  document.addEventListener('keydown',e=>{
-    if(editing) return;
-    if(e.key==='Escape'){ const c=current(); show(c&&c.id.startsWith('p-')?'menu':'welcome') }
-    else if((e.key==='Enter'||e.key===' ') && !welcome.classList.contains('off')){e.preventDefault();drop()}
+  /* ---------- background: click to cycle the palette ---------- */
+  let suppress=false;
+  home.addEventListener('click',e=>{
+    if(editing||suppress||!S.cycle||e.target.closest('a')) { suppress=false; return }
+    S.bg=(S.bg+1)%S.palette.length; apply(); syncPanel();
   });
-  // .jpg box follows whatever image is in it, so nothing is ever cropped
-  document.querySelectorAll('.sq-stage').forEach(st=>{
-    const im=st.querySelector('.main img'), sync=()=>{ if(im.naturalWidth) st.style.setProperty('--ar', im.naturalWidth/im.naturalHeight) };
-    im.addEventListener('load',sync); sync();
-  });
 
-  // menu links: open their page when it exists
-  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); if(editing) return; const p=document.getElementById('p-'+a.getAttribute('href').slice(1)); if(p) show(p.id) }));
+  // menu links: destinations pending
+  document.querySelectorAll('.menu a').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
 
-  // text: contents only
+  /* ---------- edit mode: text + images, contents only ---------- */
   const texts=[...document.querySelectorAll('[data-edit-text]')];
   texts.forEach(el=>{
     const k='t:'+el.dataset.editText, v=get(k); if(v!==null) el.textContent=v;
@@ -193,26 +238,159 @@ body.editing [data-edit-text]{cursor:text;outline:1px dashed rgba(26,26,24,.3);o
     el.addEventListener('paste',e=>{e.preventDefault();document.execCommand('insertText',false,e.clipboardData.getData('text/plain'))});
     el.addEventListener('keydown',e=>{if(editing&&e.key==='Enter'){e.preventDefault();el.blur()}});
   });
-
-  // images: contents only
   const picker=document.getElementById('picker'); let target=null;
   const load=(slot,file)=>{ if(!file||!file.type.startsWith('image/'))return;
     const r=new FileReader(); r.onload=()=>{slot.querySelector('img').src=r.result; set('i:'+slot.dataset.editImg,r.result)}; r.readAsDataURL(file); };
   document.querySelectorAll('[data-edit-img]').forEach(slot=>{
     const v=get('i:'+slot.dataset.editImg); if(v) slot.querySelector('img').src=v;
-    slot.addEventListener('click',e=>{ if(!editing) return; e.stopPropagation(); target=slot; picker.value=''; picker.click() });
+    slot.addEventListener('click',e=>{ if(!editing) return; target=slot; picker.value=''; picker.click() });
     slot.addEventListener('dragover',e=>{ if(!editing) return; e.preventDefault(); slot.classList.add('drag') });
     slot.addEventListener('dragleave',()=>slot.classList.remove('drag'));
-    slot.addEventListener('drop',e=>{ if(!editing) return; e.preventDefault(); e.stopPropagation(); slot.classList.remove('drag'); load(slot,e.dataTransfer.files[0]) });
+    slot.addEventListener('drop',e=>{ if(!editing) return; e.preventDefault(); slot.classList.remove('drag'); load(slot,e.dataTransfer.files[0]) });
   });
   picker.addEventListener('change',()=>{ if(target) load(target,picker.files[0]) });
+  home.addEventListener('contextmenu',e=>{ if(!editing) e.preventDefault() });
 
-  // toggle
+  /* ---------- drag the object; a drag never counts as a background click ---------- */
+  let drag=null;
+  obj.addEventListener('pointerdown',e=>{
+    if(editing||e.button>0) return;
+    e.preventDefault(); obj.setPointerCapture(e.pointerId); obj.classList.add('dragging');
+    drag={x:e.clientX,y:e.clientY,ox:S.objX,oy:S.objY,moved:false};
+  });
+  obj.addEventListener('pointermove',e=>{
+    if(!drag) return;
+    const dx=e.clientX-drag.x, dy=e.clientY-drag.y;
+    if(Math.abs(dx)+Math.abs(dy)>4) drag.moved=true;
+    S.objX=Math.round(drag.ox+dx); S.objY=Math.round(drag.oy+dy);
+    obj.style.setProperty('--dx',S.objX+'px'); obj.style.setProperty('--dy',S.objY+'px');
+  });
+  const endDrag=()=>{ if(!drag) return; if(drag.moved){ suppress=true; apply(); syncPanel() } drag=null; obj.classList.remove('dragging') };
+  obj.addEventListener('pointerup',endDrag); obj.addEventListener('pointercancel',endDrag);
+
+  /* ---------- menu on/off ---------- */
+  const sw=document.getElementById('menuSwitch');
+  const setMenu=on=>{ sw.setAttribute('aria-pressed',on); document.body.classList.toggle('menu-off',!on); set('menu',on?'1':'0') };
+  setMenu(get('menu')!=='0');
+  sw.addEventListener('click',()=>setMenu(sw.getAttribute('aria-pressed')!=='true'));
+
+  /* ---------- edit toggle ---------- */
   const btn=document.getElementById('editToggle');
-  btn.addEventListener('click',e=>{
-    e.stopPropagation(); editing=!editing;
+  btn.addEventListener('click',()=>{
+    editing=!editing;
     document.body.classList.toggle('editing',editing); btn.setAttribute('aria-pressed',editing);
-    texts.forEach(el=>{ if(editing){ el.contentEditable='plaintext-only'; if(el.contentEditable!=='plaintext-only') el.contentEditable='true'; } else { el.removeAttribute('contenteditable'); } });
+    texts.forEach(el=>{ if(editing){ el.contentEditable='plaintext-only'; if(el.contentEditable!=='plaintext-only') el.contentEditable='true'; } else el.removeAttribute('contenteditable'); });
+  });
+
+  /* ---------- dev panel ---------- */
+  const dev=document.getElementById('dev'), devBtn=document.getElementById('devToggle');
+  const SCHEMA=[
+    ['Typeface',[
+      {k:'font',label:'Family',type:'select',options:Object.keys(FONTS)},
+      {k:'customFont',label:'Custom name',type:'text',placeholder:'e.g. Big Shoulders Display'},
+      {k:'weight',label:'Weight',type:'range',min:100,max:1000,step:10},
+      {k:'size',label:'Size ×',type:'range',min:.2,max:4,step:.01},
+      {k:'stretch',label:'Widen ×',type:'range',min:.3,max:5,step:.01},
+      {k:'fontStretch',label:'Font width %',type:'range',min:25,max:200,step:1,note:'variable-width fonts only'},
+      {k:'tracking',label:'Tracking em',type:'range',min:-.3,max:1.5,step:.005},
+      {k:'textCase',label:'Case',type:'select',options:['none','uppercase','lowercase','capitalize']},
+      {k:'italic',label:'Italic',type:'check'},
+      {k:'fvs',label:'Variation',type:'text',placeholder:'"wght" 300, "wdth" 150'},
+      {k:'color',label:'Colour',type:'color'},
+      {k:'hover',label:'Hover',type:'color'}
+    ]],
+    ['Menu layout',[
+      {k:'pitch',label:'Spacing ×',type:'range',min:.3,max:3,step:.01},
+      {k:'drift',label:'Drift px/line',type:'range',min:-60,max:60,step:.5},
+      {k:'menuX',label:'X offset vw',type:'range',min:-70,max:30,step:.1},
+      {k:'menuY',label:'Y offset vh',type:'range',min:-50,max:50,step:.1}
+    ]],
+    ['Bag',[
+      {k:'objScale',label:'Scale ×',type:'range',min:.2,max:3,step:.01},
+      {k:'objOpacity',label:'Opacity',type:'range',min:0,max:1,step:.01},
+      {k:'objX',label:'X px',type:'range',min:-2000,max:2000,step:1},
+      {k:'objY',label:'Y px',type:'range',min:-2000,max:2000,step:1},
+      {type:'buttons',items:[['Centre position',()=>{S.objX=0;S.objY=0}],['Reset bag',()=>{['objScale','objOpacity','objX','objY'].forEach(k=>S[k]=DEFAULTS[k])}]]}
+    ]],
+    ['Background',[
+      {k:'palette',label:'Palette',type:'palette'},
+      {k:'bg',label:'Showing #',type:'range',min:0,max:4,step:1},
+      {k:'cycle',label:'Cycle on click',type:'check'},
+      {k:'fade',label:'Fade ms',type:'range',min:0,max:1500,step:10}
+    ]],
+    ['Export',[
+      {type:'buttons',items:[['Copy CSS',()=>out(css())],['Copy JSON',()=>out(JSON.stringify(S,null,1))],['Reset all',()=>{S=clone(DEFAULTS)}]]},
+      {type:'output'}
+    ]]
+  ];
+  const controls=[];
+  function build(){
+    dev.innerHTML='<header><span>Dev · typeface + scale</span><button type="button" aria-label="Close panel">✕</button></header>';
+    dev.querySelector('header button').onclick=()=>toggleDev(false);
+    SCHEMA.forEach(([title,items],gi)=>{
+      const d=document.createElement('details'); d.open=gi<3;
+      d.innerHTML=`<summary>${title}</summary><div class="rows"></div>`; const rows=d.querySelector('.rows');
+      items.forEach(it=>{
+        const row=document.createElement('div'); row.className='row';
+        if(it.type==='buttons'){ row.className='btns'; it.items.forEach(([t,fn])=>{const b=document.createElement('button');b.type='button';b.textContent=t;b.onclick=()=>{fn();apply();syncPanel()};row.appendChild(b)}); rows.appendChild(row); return }
+        if(it.type==='output'){ row.className=''; row.innerHTML='<textarea id="dev-out" readonly hidden></textarea><div class="note" id="dev-out-note"></div>'; rows.appendChild(row); return }
+        const id='dev-'+it.k; row.innerHTML=`<label for="${id}">${it.label}</label>`;
+        let el,num;
+        if(it.type==='range'){
+          el=Object.assign(document.createElement('input'),{type:'range',id,min:it.min,max:it.max,step:it.step});
+          num=Object.assign(document.createElement('input'),{type:'number',id:id+'-n',step:it.step,'aria-label':it.label+' value'});
+          const fire=v=>{ S[it.k]=parseFloat(v); if(Number.isNaN(S[it.k])) return; apply(); syncPanel(it.k) };
+          el.oninput=()=>fire(el.value); num.oninput=()=>fire(num.value);
+          row.append(el,num);
+        } else if(it.type==='select'){
+          row.className='row wide'; el=document.createElement('select'); el.id=id;
+          it.options.forEach(o=>el.add(new Option(o,o))); el.onchange=()=>{S[it.k]=el.value;apply()}; row.append(el);
+        } else if(it.type==='text'){
+          row.className='row wide'; el=Object.assign(document.createElement('input'),{type:'text',id,placeholder:it.placeholder||'',spellcheck:false});
+          el.onchange=()=>{S[it.k]=el.value;if(it.k==='customFont'&&el.value.trim())S.font='Custom (Google Fonts name)';apply();syncPanel()}; row.append(el);
+        } else if(it.type==='check'){
+          row.className='row wide'; el=Object.assign(document.createElement('input'),{type:'checkbox',id}); el.onchange=()=>{S[it.k]=el.checked;apply()}; row.append(el);
+        } else if(it.type==='color'){
+          row.className='row wide'; el=Object.assign(document.createElement('input'),{type:'color',id}); el.oninput=()=>{S[it.k]=el.value;apply()}; row.append(el);
+        } else if(it.type==='palette'){
+          row.className='row wide'; el=document.createElement('div'); el.className='swatches';
+          S.palette.forEach((c,i)=>{const s=Object.assign(document.createElement('input'),{type:'color',id:id+'-'+i,'aria-label':'Palette colour '+(i+1)});
+            s.oninput=()=>{S.palette[i]=s.value;apply()}; el.appendChild(s)}); row.append(el);
+        }
+        if(it.note){ const n=document.createElement('div'); n.className='note'; n.style.gridColumn='2 / -1'; n.textContent=it.note; row.append(n) }
+        controls.push({it,el,num}); rows.appendChild(row);
+      });
+      dev.appendChild(d);
+    });
+  }
+  function syncPanel(skip){
+    if(dev.hidden) return;
+    controls.forEach(({it,el,num})=>{
+      const v=S[it.k];
+      if(it.type==='range'){ if(it.k!==skip||document.activeElement!==el) el.value=v; if(document.activeElement!==num) num.value=v }
+      else if(it.type==='check') el.checked=!!v;
+      else if(it.type==='palette') [...el.children].forEach((s,i)=>s.value=S.palette[i]);
+      else if(document.activeElement!==el) el.value=v;
+    });
+  }
+  function css(){
+    const t=tokens(); delete t['--field'];
+    return `:root{\n${Object.entries(t).map(([k,v])=>`  ${k}:${v};`).join('\n')}\n  --palette:${S.palette.join(' ')};\n}\n.object{--dx:${S.objX}px;--dy:${S.objY}px}`;
+  }
+  function out(text){
+    const ta=document.getElementById('dev-out'), note=document.getElementById('dev-out-note');
+    ta.value=text; ta.hidden=false;
+    const fallback=()=>{ ta.focus(); ta.select(); note.textContent='Selected. Copy it manually.' };
+    try{ navigator.clipboard.writeText(text).then(()=>note.textContent='Copied to clipboard.',fallback) }catch(e){ fallback() }
+  }
+  function toggleDev(on){
+    on=on===undefined?dev.hidden:on;
+    if(on&&!dev.children.length) build();
+    dev.hidden=!on; devBtn.setAttribute('aria-pressed',on); if(on) syncPanel();
+  }
+  devBtn.addEventListener('click',()=>toggleDev());
+  document.addEventListener('keydown',e=>{
+    if(e.key==='`' && !e.target.closest('input,textarea,select,[contenteditable]')){ e.preventDefault(); toggleDev() }
   });
 })();
 </script>
